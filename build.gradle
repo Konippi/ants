@@ -1,0 +1,347 @@
+plugins {
+    // Apply the application plugin to add support for building a CLI application in Java.
+    id 'application'
+}
+
+dependencies {
+    // Use JUnit test framework.
+    testImplementation 'junit:junit:4.13.2'
+
+    // This dependency is used by the application.
+    implementation 'com.google.guava:guava:31.0.1-jre'
+}
+
+application {
+    // Define the main class for the application.
+    mainClass = 'com.example.App'
+}
+
+buildscript {
+    ext {
+        springBootVersion = "2.7.0"
+    }
+    repositories {
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE"
+        classpath "org.yaml:snakeyaml:1.29"
+        classpath "org.flywaydb:flyway-gradle-plugin:7.13.0"
+        classpath "com.github.node-gradle:gradle-node-plugin:3.1.0"
+        classpath "com.netflix.nebula:gradle-ospackage-plugin:8.5.6"
+    }
+}
+
+apply plugin: "io.spring.dependency-management"
+apply plugin: "org.springframework.boot"
+apply plugin: "org.flywaydb.flyway"
+apply plugin: "java"
+apply plugin: "jacoco"
+apply plugin: 'com.github.node-gradle.node'
+apply plugin: "nebula.ospackage"
+
+node {
+    // Whether to download and install a specific Node.js version or not
+    // If false, it will use the globally installed Node.js
+    // If true, it will download node using above parameters
+    // Note that npm is bundled with Node.js
+    // Nodeを./frontend以下にダウンロードする
+    download = true
+
+    // Version of node to download and install (only used if download is true)
+    // It will be unpacked in the workDir
+    version = "16.9.1"
+
+    // Version of npm to use
+    // If specified, installs it in the npmWorkDir
+    // If empty, the plugin will use the npm command bundled with Node.js
+    npmVersion = "7.21.1"
+
+    // Version of Yarn to use
+    // Any Yarn task first installs Yarn in the yarnWorkDir
+    // It uses the specified version if defined and the latest version otherwise (by default)
+    // yarnVersion = ""
+
+    // Base URL for fetching node distributions
+    // Only used if download is true
+    // Change it if you want to use a mirror
+    // Or set to null if you want to add the repository on your own.
+    distBaseUrl = "https://nodejs.org/dist"
+
+    // The npm command executed by the npmInstall task
+    // By default it is install but it can be changed to ci
+    //	npmInstallCommand = "install"
+    //	npmCommand = install
+
+    // The directory where Node.js is unpacked (when download is true)
+    workDir = file("${project.projectDir}/frontend/nodejs")
+
+    // The directory where npm is installed (when a specific version is defined)
+    npmWorkDir = file("${project.projectDir}/frontend/npm")
+
+    // The directory where yarn is installed (when a Yarn task is used)
+    // yarnWorkDir = file("${project.projectDir}/frontend/yarn")
+
+    // The Node.js project directory location
+    // This is where the package.json file and node_modules directory are located
+    // By default it is at the root of the current project
+    nodeModulesDir = file("${project.projectDir}/frontend")
+
+    // Whether the plugin automatically should add the proxy configuration to npm and yarn commands
+    // according the proxy configuration defined for Gradle
+    // Disable this option if you want to configure the proxy for npm or yarn on your own
+    // (in the .npmrc file for instance)
+    //	nodeProxySettings = ProxySettings.SMART
+}
+
+
+task buildRLocal(type: NpmTask) {
+    dependsOn(npmInstall)
+    description = "Reactアプリのbuild（testRun用）"
+    args = ['run', 'pbuildlocal']
+}
+
+task buildRDev(type: NpmTask) {
+    dependsOn(npmInstall)
+    description = "Reactアプリのbuild（devサーバー用）"
+    args = ['run', 'pbuilddev']
+}
+
+task buildRProd(type: NpmTask) {
+    dependsOn(npmInstall)
+    description = "Reactアプリのbuild（本番サーバー用）"
+    args = ['run', 'pbuildprod']
+}
+
+task devF(type: NpmTask) {
+    outputs.file file("output.txt")
+    dependsOn(npmInstall)
+    description = "Reactアプリの開発"
+    args = ['start']
+}
+
+task stopF(type: NpmTask) {
+    description = "localhost:3000で走っているアプリを終了（kill）します"
+    args = ['stop']
+}
+
+task stopB(type: NpmTask) {
+    description = "localhost:8080で走っているアプリを終了（kill）します"
+    args = ['stopB']
+}
+
+// TODO 毎回実行されるようにする
+task swaggergen() {
+    group("便利な")
+    outputs.upToDateWhen { false }
+    doFirst {
+        tasks.integrationTest.configure {
+            systemProperty("--tests", "net.nintendo.mng.trek.test.controller.GenerateSwaggerIT")
+        }
+    }
+    finalizedBy("integrationTest")
+}
+
+task codegen(type: NpmTask) {
+    // TODO 毎回実行されるようになったらコメントアウト解除
+    dependsOn(swaggergen)
+    args = ['run', 'codegen']
+}
+
+task testRun() {
+    group("便利な")
+    description = "フロントエンドをビルドして、それをprofile=testでSpring Bootに配信させる"
+    doFirst {
+        tasks.bootRun.configure {
+            systemProperty("spring.profiles.active", "test")
+        }
+    }
+    dependsOn(buildRLocal)
+    finalizedBy("bootRun")
+}
+
+sourceCompatibility = 11
+targetCompatibility = 11
+
+sourceSets {
+    mybatis {
+        java {
+            srcDir "src/mybatis/java"
+        }
+    }
+}
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+configurations {
+    mybatisGenerate
+}
+
+/* =====================
+  variables
+===================== */
+
+ext {
+    date = new Date()
+    timestamp = date.format("yyyyMMddHHmmsss")
+
+    // directory
+    baseDirectory = projectDir.absolutePath.replaceAll("\\\\", "/")
+    resourcesDirectory = "src/main/resources"
+    javaDirectory = "src/main/java"
+    propertyDirectory = "${rootProject.rootDir.path}/${resourcesDirectory}"
+
+    // yml
+    basePropertyFile = "application.yml"
+    environment = System.getProperty("spring.profiles.active") ?: "sample"
+    extensionPropertyFile = "application-${environment}.yml"
+
+    // property
+    baseProperties = new org.yaml.snakeyaml.Yaml().load(new File("${propertyDirectory}/${basePropertyFile}").newInputStream())
+    extensionProperties = new org.yaml.snakeyaml.Yaml().load(new File("${propertyDirectory}/${extensionPropertyFile}").newInputStream())
+    baseSpringProperty = baseProperties.spring
+    extensionSpringProperty = extensionProperties.spring
+    baseTrekProperty = baseProperties.trek
+    extensionTrekProperty = extensionProperties.trek
+
+    // datasource property
+    baseSpringDatasourceProperty = baseSpringProperty.datasource
+    extensionSpringDatasourceProperty = extensionSpringProperty.datasource
+    baseTrekDatasourceProperty = baseTrekProperty.datasource
+    extensionTrekDatasourceProperty = extensionTrekProperty.datasource
+
+    // module property
+    baseTrekMybatisProperty = baseTrekProperty.mybatis
+    baseTrekFlywayProperty = baseTrekProperty.flyway
+    baseTrekRpmProperty = baseTrekProperty.rpm
+
+    /* =====================
+    value
+    ===================== */
+
+    // application
+    applicationName = baseSpringProperty.application.name
+    applicationVersion = "ver.${baseSpringProperty.application.version}"
+    packageName = baseTrekProperty.package
+    mainPackage = "${packageName}.${baseTrekProperty.mainClass}"
+    buildVersion = "${applicationVersion}_${timestamp}"
+
+    // datasource
+    datasourceDriver = baseSpringDatasourceProperty.driverClassName
+    datasourceSchema = baseTrekDatasourceProperty.schema
+    datasourceOption = baseTrekDatasourceProperty.option
+    datasourcePort = extensionTrekDatasourceProperty.port
+    datasourceHost = extensionTrekDatasourceProperty.host
+    datasourceUsername = extensionSpringDatasourceProperty.username
+    datasourcePassword = extensionSpringDatasourceProperty.password
+    datasourceSchema = baseTrekDatasourceProperty.schema
+    datasourceVersionTable = baseSpringProperty.flyway.table
+    datasourceUrl = baseSpringDatasourceProperty.url.toString()
+            .replaceFirst('\\$\\{trek\\.datasource\\.host\\}', "${datasourceHost}")
+            .replaceFirst('\\$\\{trek\\.datasource\\.port\\}', "${datasourcePort}")
+            .replaceFirst('\\$\\{trek\\.datasource\\.schema\\}', "${datasourceSchema}")
+            .replaceFirst('\\$\\{trek\\.datasource\\.option\\}', "${datasourceOption}")
+
+
+}
+
+dependencies {
+
+    ext {
+        swaggerVersion = "2.9.2"
+    }
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+
+    // logging
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+    modules {
+        module('org.springframework.boot:spring-boot-starter-logging') {
+            replacedBy 'org.springframework.boot:spring-boot-starter-log4j2'
+        }
+    }
+    configurations.all {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            if (details.requested.group == 'org.apache.logging.log4j') {
+                details.useVersion '2.17.1'
+            }
+        }
+    }
+
+    // Thymeleaf
+    implementation "org.springframework.boot:spring-boot-starter-thymeleaf"
+    implementation "org.thymeleaf.extras:thymeleaf-extras-springsecurity5"
+
+    // lombok
+    implementation "org.projectlombok:lombok:1.18.20"
+    annotationProcessor "org.projectlombok:lombok:1.18.20"
+    implementation "org.projectlombok:lombok:1.18.20"
+
+    // security
+    implementation "org.springframework.boot:spring-boot-starter-security"
+    testImplementation "org.springframework.security:spring-security-test"
+    implementation "org.springframework.security:spring-security-oauth2-client"
+    implementation "org.springframework.security:spring-security-oauth2-jose"
+
+    //mysql
+    implementation "mysql:mysql-connector-java:8.0.26"
+
+    // mybatis
+    implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0"
+    implementation "org.mybatis.generator:mybatis-generator-maven-plugin:1.4.0"
+    mybatisImplementation "org.mybatis.generator:mybatis-generator-maven-plugin:1.4.0"
+    mybatisGenerate "org.mybatis.generator:mybatis-generator-core:1.4.0"
+    mybatisGenerate "mysql:mysql-connector-java:8.0.26"
+    testImplementation "org.mybatis.spring.boot:mybatis-spring-boot-starter-test:2.2.0"
+
+    // flyway
+    implementation "org.flywaydb:flyway-core"
+    implementation "org.flywaydb:flyway-mysql"
+
+    // yaml-resource-bundle
+    implementation('net.rakugakibox.util:yaml-resource-bundle:1.1')
+
+    // swagger
+    implementation "io.springfox:springfox-swagger2:${swaggerVersion}"
+    implementation "io.springfox:springfox-swagger-ui:${swaggerVersion}"
+    implementation "io.springfox:springfox-core:${swaggerVersion}"
+
+    // validation
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // Mockito
+    testImplementation "org.mockito:mockito-core:3.10.0"
+    testImplementation "org.mockito:mockito-inline:3.10.0"
+    testImplementation "org.mockito:mockito-junit-jupiter:3.10.0"
+    testImplementation "com.ninja-squad:DbSetup:2.1.0"
+
+    testImplementation "org.jacoco:org.jacoco.agent:0.8.6"
+
+
+    // validation
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-collections4
+    implementation "org.apache.commons:commons-collections4:4.4"
+
+    // webclient
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation "io.projectreactor:reactor-core"
+
+    implementation 'commons-io:commons-io:2.4'
+
+
+}
+
+apply from: "run.gradle"
+apply from: "mybatis.gradle"
+apply from: "flyway.gradle"
+apply from: "test.gradle"
+apply from: "rpm.gradle"

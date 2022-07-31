@@ -1,0 +1,50 @@
+ospackage {
+
+    ext {
+        year = date.format("yyyy")
+        summary = baseTrekRpmProperty.summary
+        desciption = baseTrekRpmProperty.description
+        vendorVersion = baseTrekRpmProperty.vendor.name
+        vendorUrl = baseTrekRpmProperty.vendor.url
+    }
+
+    packageName "${applicationName}"
+    version "${buildVersion}"
+    release System.getenv("BUILD_NUMBER")
+    summary "${summary}"
+    description "${desciption}"
+    license "Copyright ${year} ${vendorVersion}"
+    vendor "${vendorVersion}"
+    url "${vendorUrl}"
+
+    os LINUX
+    arch X86_64
+    type BINARY
+    user "root"
+    permissionGroup "root"
+
+    into "/opt/nintendo"
+    from(bootJar.outputs.files) {
+        into "/opt/nintendo/data/webapps-stand-alone"
+        // bootJar.outputs.files[0] が取得できれば良いため、以下で指定可能
+        rename {filname -> "${applicationName}.jar"}
+    }
+    fileMode 0644
+    from("${resourcesDirectory}/release") {
+        into "/opt/nintendo/data/webapps-stand-alone/config"
+    }
+    from("${applicationName}.env") {
+        into "/opt/nintendo/data/webapps-stand-alone"
+    }
+    from("${applicationName}.service") {
+        addParentDirs false
+        into "/usr/lib/systemd/system"
+    }
+
+
+}
+
+buildRpm {
+    dependsOn assemble
+    directory("/var/log/apl/${applicationName}")
+}
