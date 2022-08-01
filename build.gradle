@@ -1,16 +1,3 @@
-plugins {
-    // Apply the application plugin to add support for building a CLI application in Java.
-    id 'application'
-}
-
-dependencies {
-    // Use JUnit test framework.
-    testImplementation 'junit:junit:4.13.2'
-
-    // This dependency is used by the application.
-    implementation 'com.google.guava:guava:31.0.1-jre'
-}
-
 application {
     // Define the main class for the application.
     mainClass = 'com.example.App'
@@ -134,7 +121,6 @@ task stopB(type: NpmTask) {
     args = ['stopB']
 }
 
-// TODO 毎回実行されるようにする
 task swaggergen() {
     group("便利な")
     outputs.upToDateWhen { false }
@@ -147,7 +133,6 @@ task swaggergen() {
 }
 
 task codegen(type: NpmTask) {
-    // TODO 毎回実行されるようになったらコメントアウト解除
     dependsOn(swaggergen)
     args = ['run', 'codegen']
 }
