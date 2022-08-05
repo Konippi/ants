@@ -1,0 +1,85 @@
+---
+
+server:
+  port: 8080
+  servlet:
+    contextPath: /
+    session:
+      timeout: 24h
+      cookie:
+        max-age: 24h
+
+# TODO connection pool についても検討が必要 https://github.com/spring-projects/spring-xd/blob/master/spring-xd-dirt/src/main/resources/application.yml
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher
+  profiles:
+    active: sample # application-sample.yml 以外の yml を読み込みたい場合には 起動時に -Dspring.profiles.active を指定する
+  application:
+    name: ants
+    version: 1.2.0_SNAPSHOT
+  datasource:
+    url: jdbc:mysql://${ants.datasource.host}:${ants.datasource.port}/${ants.datasource.schema}?${ants.datasource.option}
+    username: # application-hoge.yml に要記載
+    password: # application-hoge.yml に要記載
+    driverClassName: com.mysql.cj.jdbc.Driver
+  flyway:
+    baselineOnMigrate: true
+    validateOnMigrate: false
+    outOfOrder: false
+    url: ${ants.flyway.datasource.url}
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+    table: sample_version
+    connectRetries: 100 # 本番時には必要であれば変更
+    schemas:
+      - ${ants.datasource.schema}
+  thymeleaf:
+    enabled: true
+    cache: false
+    prefix: classpath:/templates/
+
+# TODO さらにカスタムする場合は xml への記述が必要
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG  # 本番時には必要であれば変更
+    root: DEBUG  # 本番時には必要であれば変更
+
+mybatis:
+  configuration:
+    mapUnderscoreToCamelCase: true
+  mapperLocations:
+    - classpath:/db/mapper/base/*Mapper.xml
+    - classpath:/db/mapper/*Mapper.xml
+
+ants:
+  buildVersion: "@buildVersion@"
+  package: com.example.ants
+  mainClass: ANTSAPIApplication
+  datasource:
+    schema: ants
+    host: # application-hoge.yml に要記載
+    port: # application-hoge.yml に要記載
+    option: useSSL=false&allowPublicKeyRetrieval=true
+  i18n:
+    encoding: UTF-8
+    basename: i18n/messages
+  flyway:
+    datasource:
+      url: jdbc:mysql://${ants.datasource.host}:${ants.datasource.port}?${ants.datasource.option}
+  mybatis:
+    config:
+      file: generatorConfig.xml
+    model:
+      package: db.entity
+    client:
+      package: db.mapper.base
+      type: XMLMAPPER
+    map:
+      package: db.mapper.base
+
+
+
