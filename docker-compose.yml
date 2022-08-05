@@ -1,0 +1,36 @@
+version: '3.3'
+services:
+  ants-local:
+    build: ./docker/mysql
+    platform: linux/x86_64
+    restart: always
+    command: --log-bin-trust-function-creators=1
+    environment:
+      MYSQL_DATABASE: ants
+      MYSQL_USER: sample
+      MYSQL_PASSWORD: sample
+      MYSQL_ROOT_PASSWORD: password
+      TZ: Asia/Tokyo
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./docker/mysql/conf.d:/etc/mysql/conf.d
+      - ./docker/mysql/log/develop:/var/log/mysql
+      - ./docker/mysql/data/develop:/var/lib/mysql
+  ants-test:
+    build: ./docker/mysql
+    platform: linux/x86_64
+    restart: always
+    command: --log-bin-trust-function-creators=1
+    environment:
+      MYSQL_DATABASE: ants
+      MYSQL_USER: sample
+      MYSQL_PASSWORD: sample
+      MYSQL_ROOT_PASSWORD: password
+      TZ: Asia/Tokyo
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./docker/mysql/conf.d:/etc/mysql/conf.d
+      - ./docker/mysql/log/test:/var/log/mysql
+      - ./docker/mysql/data/test:/var/lib/mysql

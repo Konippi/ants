@@ -1,8 +1,3 @@
-application {
-    // Define the main class for the application.
-    mainClass = 'com.example.App'
-}
-
 buildscript {
     ext {
         springBootVersion = "2.7.0"
@@ -126,7 +121,7 @@ task swaggergen() {
     outputs.upToDateWhen { false }
     doFirst {
         tasks.integrationTest.configure {
-            systemProperty("--tests", "net.nintendo.mng.trek.test.controller.GenerateSwaggerIT")
+            systemProperty("--tests", "com.example.ants.test.controller.GenerateSwaggerIT")
         }
     }
     finalizedBy("integrationTest")
@@ -193,19 +188,19 @@ ext {
     extensionProperties = new org.yaml.snakeyaml.Yaml().load(new File("${propertyDirectory}/${extensionPropertyFile}").newInputStream())
     baseSpringProperty = baseProperties.spring
     extensionSpringProperty = extensionProperties.spring
-    baseTrekProperty = baseProperties.trek
-    extensionTrekProperty = extensionProperties.trek
+    baseAntsProperty = baseProperties.ants
+    extensionAntsProperty = extensionProperties.ants
 
     // datasource property
     baseSpringDatasourceProperty = baseSpringProperty.datasource
     extensionSpringDatasourceProperty = extensionSpringProperty.datasource
-    baseTrekDatasourceProperty = baseTrekProperty.datasource
-    extensionTrekDatasourceProperty = extensionTrekProperty.datasource
+    baseAntsDatasourceProperty = baseAntsProperty.datasource
+    extensionAntsDatasourceProperty = extensionAntsProperty.datasource
 
     // module property
-    baseTrekMybatisProperty = baseTrekProperty.mybatis
-    baseTrekFlywayProperty = baseTrekProperty.flyway
-    baseTrekRpmProperty = baseTrekProperty.rpm
+    baseAntsMybatisProperty = baseAntsProperty.mybatis
+    baseAntsFlywayProperty = baseAntsProperty.flyway
+    baseAntsRpmProperty = baseAntsProperty.rpm
 
     /* =====================
     value
@@ -214,25 +209,25 @@ ext {
     // application
     applicationName = baseSpringProperty.application.name
     applicationVersion = "ver.${baseSpringProperty.application.version}"
-    packageName = baseTrekProperty.package
-    mainPackage = "${packageName}.${baseTrekProperty.mainClass}"
+    packageName = baseAntsProperty.package
+    mainPackage = "${packageName}.${baseAntsProperty.mainClass}"
     buildVersion = "${applicationVersion}_${timestamp}"
 
     // datasource
     datasourceDriver = baseSpringDatasourceProperty.driverClassName
-    datasourceSchema = baseTrekDatasourceProperty.schema
-    datasourceOption = baseTrekDatasourceProperty.option
-    datasourcePort = extensionTrekDatasourceProperty.port
-    datasourceHost = extensionTrekDatasourceProperty.host
+    datasourceSchema = baseAntsDatasourceProperty.schema
+    datasourceOption = baseAntsDatasourceProperty.option
+    datasourcePort = extensionAntsDatasourceProperty.port
+    datasourceHost = extensionAntsDatasourceProperty.host
     datasourceUsername = extensionSpringDatasourceProperty.username
     datasourcePassword = extensionSpringDatasourceProperty.password
-    datasourceSchema = baseTrekDatasourceProperty.schema
+    datasourceSchema = baseAntsDatasourceProperty.schema
     datasourceVersionTable = baseSpringProperty.flyway.table
     datasourceUrl = baseSpringDatasourceProperty.url.toString()
-            .replaceFirst('\\$\\{trek\\.datasource\\.host\\}', "${datasourceHost}")
-            .replaceFirst('\\$\\{trek\\.datasource\\.port\\}', "${datasourcePort}")
-            .replaceFirst('\\$\\{trek\\.datasource\\.schema\\}', "${datasourceSchema}")
-            .replaceFirst('\\$\\{trek\\.datasource\\.option\\}', "${datasourceOption}")
+            .replaceFirst('\\$\\{ants\\.datasource\\.host\\}', "${datasourceHost}")
+            .replaceFirst('\\$\\{ants\\.datasource\\.port\\}', "${datasourcePort}")
+            .replaceFirst('\\$\\{ants\\.datasource\\.schema\\}', "${datasourceSchema}")
+            .replaceFirst('\\$\\{ants\\.datasource\\.option\\}', "${datasourceOption}")
 
 
 }
@@ -269,11 +264,11 @@ dependencies {
     annotationProcessor "org.projectlombok:lombok:1.18.20"
     implementation "org.projectlombok:lombok:1.18.20"
 
-    // security
-    implementation "org.springframework.boot:spring-boot-starter-security"
-    testImplementation "org.springframework.security:spring-security-test"
-    implementation "org.springframework.security:spring-security-oauth2-client"
-    implementation "org.springframework.security:spring-security-oauth2-jose"
+//    // security
+//    implementation "org.springframework.boot:spring-boot-starter-security"
+//    testImplementation "org.springframework.security:spring-security-test"
+//    implementation "org.springframework.security:spring-security-oauth2-client"
+//    implementation "org.springframework.security:spring-security-oauth2-jose"
 
     //mysql
     implementation "mysql:mysql-connector-java:8.0.26"
@@ -329,4 +324,3 @@ apply from: "run.gradle"
 apply from: "mybatis.gradle"
 apply from: "flyway.gradle"
 apply from: "test.gradle"
-apply from: "rpm.gradle"

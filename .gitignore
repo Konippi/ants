@@ -3,3 +3,14 @@
 .idea
 
 build
+
+
+### yml ###
+application-local.yml
+application-test.yml
+
+### Docker Log ###
+/docker/mysql/log/
+/docker/mysql/data/
+
+.DS_Store

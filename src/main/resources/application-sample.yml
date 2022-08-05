@@ -1,0 +1,13 @@
+---
+
+spring:
+  datasource:
+    username: sample
+    password: sample
+
+ants:
+  datasource:
+    host: 127.0.0.1
+    port: 3306 # 設定が必要
+  security:
+    csrf: false
