@@ -1,0 +1,49 @@
+task mbgenerate(dependsOn: compileMybatisJava) doLast {
+
+    ext {
+        configFile = baseAntsMybatisProperty.config.file
+        modelPackage = "${packageName}.${baseAntsMybatisProperty.model.package}"
+        clientPackage = "${packageName}.${baseAntsMybatisProperty.client.package}"
+        mapPackage = baseAntsMybatisProperty.map.package
+        classpath = configurations.mybatisGenerate.asPath + ":build/classes/java/mybatis"
+        classname = "org.mybatis.generator.ant.GeneratorAntTask"
+    }
+
+    ant.taskdef(
+            name: "genfiles",
+            classpath: "${classpath}",
+            classname: "${classname}"
+    )
+
+    ant.properties["db.url"] = "${datasourceUrl}".toString()
+    ant.properties["db.driver"] = "${datasourceDriver}".toString()
+    ant.properties["db.user"] = "${datasourceUsername}".toString()
+    ant.properties["db.password"] = "${datasourcePassword}".toString()
+    ant.properties["generator.model.project"] = "${baseDirectory}/${javaDirectory}".toString()
+    ant.properties["generator.model.package"] = "${modelPackage}".toString()
+    ant.properties["generator.client.project"] = "${baseDirectory}/${javaDirectory}".toString()
+    ant.properties["generator.client.package"] = "${clientPackage}".toString()
+    ant.properties["generator.map.project"] = "${baseDirectory}/${resourcesDirectory}".toString()
+    ant.properties["generator.map.package"] = "${mapPackage}".toString()
+    ant.properties["flyway.table"] = "${baseSpringProperty.flyway.table}".toString()
+
+    ant.genfiles(
+            overwrite: "true",
+            configfile: "${baseDirectory}/${configFile}",
+            verbose: "false"
+    ) {
+        propertyset {
+            propertyref(name: "db.driver")
+            propertyref(name: "db.url")
+            propertyref(name: "db.user")
+            propertyref(name: "db.password")
+            propertyref(name: "generator.model.project")
+            propertyref(name: "generator.model.package")
+            propertyref(name: "generator.client.project")
+            propertyref(name: "generator.client.package")
+            propertyref(name: "generator.map.project")
+            propertyref(name: "generator.map.package")
+            propertyref(name: "flyway.table")
+        }
+    }
+}
