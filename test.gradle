@@ -1,0 +1,67 @@
+test {
+    useJUnitPlatform()
+    jacoco{
+        excludes = [
+                '**/*Example*',
+                '**/**Test.java',
+                '**/**UT.java',
+                '**/*IT.java'
+        ]
+    }
+    systemProperty "junit.jupiter.conditions.deactivate", "*"
+    systemProperty "spring.profiles.active", System.getProperty("spring.profiles.active")
+}
+
+jacoco {
+    toolVersion = "0.8.6"
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule{
+            limit {
+                counter = "BRANCH"
+                value = "COVEREDRATIO"
+                minimum = 0.00
+            }
+        }
+    }
+}
+check.dependsOn jacocoTestCoverageVerification
+
+// integrationTest
+task jacocoIntegrationTestReport(type: JacocoReport) {
+    executionData file("build/jacoco/integrationTest.exec")
+    sourceSets sourceSets.main
+    reports {
+        xml.enabled true
+        html.enabled true
+        csv.enabled false
+    }
+}
+task integrationTest(type: Test) {
+    useJUnitPlatform {
+        includeTags "integrationTest"
+    }
+    systemProperty "junit.jupiter.conditions.deactivate", "*"
+}
+jacocoIntegrationTestReport.dependsOn integrationTest
+
+
+// test only classes with @UnitTest
+task jacocoUnitTestReport(type: JacocoReport) {
+    executionData file("build/jacoco/unitTest.exec")
+    sourceSets sourceSets.main
+    reports {
+        xml.enabled true
+        html.enabled true
+        csv.enabled false
+    }
+}
+task unitTest(type: Test) {
+    useJUnitPlatform {
+        includeTags "unitTest"
+    }
+    systemProperty "junit.jupiter.conditions.deactivate", "*"
+}
+jacocoUnitTestReport.dependsOn unitTest

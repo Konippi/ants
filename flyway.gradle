@@ -1,0 +1,16 @@
+flyway {
+
+    ext {
+        flywayDatasourceUrl = baseAntsFlywayProperty.datasource.url.toString()
+                .replaceFirst('\\$\\{ants\\.datasource\\.host\\}', "${datasourceHost}")
+                .replaceFirst('\\$\\{ants\\.datasource\\.port\\}', "${datasourcePort}")
+                .replaceFirst('\\$\\{ants\\.datasource\\.option\\}', "${datasourceOption}")
+    }
+
+    url = "${flywayDatasourceUrl}".toString()
+    driver = "${datasourceDriver}"
+    user = "${datasourceUsername}"
+    password = "${datasourcePassword}"
+    schemas = ["${datasourceSchema}"]
+    table = "${datasourceVersionTable}"
+}
