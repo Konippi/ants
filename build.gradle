@@ -156,7 +156,6 @@ sourceSets {
 }
 
 repositories {
-    jcenter()
     mavenCentral()
 }
 
@@ -228,8 +227,6 @@ ext {
             .replaceFirst('\\$\\{ants\\.datasource\\.port\\}', "${datasourcePort}")
             .replaceFirst('\\$\\{ants\\.datasource\\.schema\\}', "${datasourceSchema}")
             .replaceFirst('\\$\\{ants\\.datasource\\.option\\}', "${datasourceOption}")
-
-
 }
 
 dependencies {
@@ -316,8 +313,6 @@ dependencies {
     implementation "io.projectreactor:reactor-core"
 
     implementation 'commons-io:commons-io:2.4'
-
-
 }
 
 apply from: "run.gradle"
