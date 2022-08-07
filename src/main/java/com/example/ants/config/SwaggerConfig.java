@@ -16,7 +16,6 @@ import static springfox.documentation.builders.PathSelectors.regex;
 @EnableSwagger2
 @Profile({ "local", "test", "dev" })
 class SwaggerConfig {
-
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2) //
@@ -25,7 +24,6 @@ class SwaggerConfig {
             .paths(paths()) //
             .build();
     }
-
     private Predicate<String> paths() {
         return or(regex("/api/v1/.*"));
     }
