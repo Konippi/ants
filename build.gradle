@@ -103,17 +103,17 @@ task devF(type: NpmTask) {
     outputs.file file("output.txt")
     dependsOn(npmInstall)
     description = "Reactアプリの開発"
-    args = ['start']
+    args = ['run', 'dev']
 }
 
 task stopF(type: NpmTask) {
     description = "localhost:3000で走っているアプリを終了（kill）します"
-    args = ['stop']
+    args = ['run', 'stop']
 }
 
 task stopB(type: NpmTask) {
     description = "localhost:8080で走っているアプリを終了（kill）します"
-    args = ['stopB']
+    args = ['run', 'stopB']
 }
 
 task swaggergen() {
