@@ -39,13 +39,8 @@
                 type="XMLMAPPER"
         />
         <table tableName="%" modelType="flat">
-<<<<<<< Updated upstream
             <property name="versionColumn" value="version"/>
             <generatedKey column="id" sqlStatement="MySql" identity="true" />
-=======
-          <property name="versionColumn" value="version"/>
-          <generatedKey column="id" sqlStatement="MySql" identity="true" />
->>>>>>> Stashed changes
         </table>
 
 
