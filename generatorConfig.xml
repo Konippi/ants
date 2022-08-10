@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <context id="Tables" targetRuntime="MyBatis3">
+        <property name="javaFileEncoding" value="UTF-8"></property>
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"/>
+        <plugin type="com.example.ants.plugin.MapperFileNamePlugin"/>
+        <plugin type="com.example.ants.plugin.IgnoreTablePlugin">
+            <property name="tableName" value="${flyway.table}"/>
+        </plugin>
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+        <jdbcConnection
+                driverClass="${db.driver}"
+                connectionURL="${db.url}"
+                userId="${db.user}"
+                password="${db.password}"
+        >
+            <property name="nullCatalogMeansCurrent" value="true"/>
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="useJSR310Types" value="true"/>
+        </javaTypeResolver>
+        <javaModelGenerator
+                targetPackage="${generator.model.package}"
+                targetProject="${generator.model.project}"
+        >
+            <property name="constructorBased" value="true"></property>
+        </javaModelGenerator>
+        <sqlMapGenerator
+                targetPackage="${generator.map.package}"
+                targetProject="${generator.map.project}"
+        />
+        <javaClientGenerator
+                targetPackage="${generator.client.package}"
+                targetProject="${generator.client.project}"
+                type="XMLMAPPER"
+        />
+        <table tableName="%" modelType="flat">
+            <property name="versionColumn" value="version"/>
+            <generatedKey column="id" sqlStatement="MySql" identity="true" />
+        </table>
+
+
+    </context>
+</generatorConfiguration>
