@@ -2,10 +2,6 @@ CREATE TABLE IF NOT EXISTS `user`
 (
     `id` INT NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(32) NOT NULL UNIQUE,
-    `mail` VARCHAR(48) NOT NULL UNIQUE,
-    `password` VARCHAR(32) NOT NULL,
-    `github_name` VARCHAR(16) NOT NULL UNIQUE,
-    `country` VARCHAR(3) NOT NULL,
 
     PRIMARY KEY(`id`)
 );
