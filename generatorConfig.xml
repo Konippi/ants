@@ -42,7 +42,5 @@
             <property name="versionColumn" value="version"/>
             <generatedKey column="id" sqlStatement="MySql" identity="true" />
         </table>
-
-
     </context>
 </generatorConfiguration>
