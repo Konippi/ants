@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.ants.db.mapper.ProjectMapper">
+    <sql id="projectColumn">
+        project.id AS project_id,
+        project.name AS project_name,
+        project.star AS project_star
+    </sql>
+
+    <resultMap id="ProjectBaseResultMap" type="com.example.ants.db.entity.Project"
+               extends="com.example.ants.db.mapper.base.ProjectBaseMapper.BaseResultMap"/>
+
+    <select id="selectAllProjectByUserId" resultMap="ProjectBaseResultMap">
+        SELECT
+        <include refid="com.example.ants.db.mapper.base.ProjectBaseMapper.Base_Column_List"/>
+        FROM project
+        LEFT JOIN
+            r_user_project
+                ON project.id = r_user_project.project_id
+        <where>
+            r_user_project.user_id = #{userId}
+        </where>
+    </select>
+
+</mapper>
