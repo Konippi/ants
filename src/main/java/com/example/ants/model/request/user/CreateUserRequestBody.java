@@ -8,21 +8,13 @@ import javax.validation.constraints.Size;
 @Data
 public class CreateUserRequestBody {
     @NotNull
-    @Size(max = 32)
+    @Size(max = 16)
     private String name;
 
-    @NotNull
     @Size(max = 32)
     private String password;
 
     @NotNull
-    @Size(max = 48)
-    private String mail;
-
-    @Size(max = 16)
-    private String githubName;
-
-    @NotNull
-    @Size(max = 3)
-    private String country;
+    @Size(max=8)
+    private String accountType;
 }
