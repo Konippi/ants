@@ -7,7 +7,6 @@ import com.example.ants.model.request.project.ProjectRequestBody;
 import com.example.ants.model.response.project.AllProjectResponse;
 import com.example.ants.service.ProjectService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/project")
 public class ProjectController {
 
-    @Autowired
     private final ProjectService projectService;
 
     @GetMapping("/{userId}")
