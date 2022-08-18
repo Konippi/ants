@@ -6,9 +6,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
-public class CreateUserRequestBody {
+public class UserRequestBody {
     @NotNull
-    @Size(max = 32)
+    @Size(max = 16)
     private String name;
 
     @NotNull
@@ -22,7 +22,9 @@ public class CreateUserRequestBody {
     @Size(max = 16)
     private String githubName;
 
-    @NotNull
     @Size(max = 3)
     private String country;
+
+    @NotNull
+    private int accountType;
 }
