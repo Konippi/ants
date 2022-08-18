@@ -4,6 +4,8 @@ import com.example.ants.enums.error.DetailErrorMessage;
 import com.example.ants.enums.error.ErrorCode;
 import com.example.ants.exception.ApiException;
 import com.example.ants.model.request.user.UserRequestBody;
+import com.example.ants.model.response.user.UserModel;
+import com.example.ants.model.response.user.UserResponse;
 import com.example.ants.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Delete;
@@ -20,13 +22,13 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public ResponseEntity getAllUsers() {
-        return new ResponseEntity(userService.getAllUsersList(), HttpStatus.OK);
+    public ResponseEntity<UserResponse> getAllUsers() {
+        return new ResponseEntity<>(userService.getAllUsersList(), HttpStatus.OK);
     }
 
     @GetMapping("/userId")
-    public ResponseEntity getUserById(@PathVariable("userId") final int userId) {
-        return new ResponseEntity(userService.getUserById(userId), HttpStatus.OK);
+    public ResponseEntity<UserModel> getUserById(@PathVariable("userId") final int userId) {
+        return new ResponseEntity<>(userService.getUserById(userId), HttpStatus.OK);
     }
 
     @PostMapping("/signup")
