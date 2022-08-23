@@ -1,7 +1,8 @@
 import ReactDOM from "react-dom";
 import {HashRouter, Route, Routes} from "react-router-dom";
-import {Layout, Home} from "./components/pages";
-import "./index.css";
+import { Layout } from "./components/layouts";
+import {Home} from "./components/pages";
+import "./css/index.css";
 import "./styles/Ants.scss";
 
 
@@ -16,6 +17,6 @@ ReactDOM.render(
                 }
             />
         </Routes>  
-  </HashRouter>,
+    </HashRouter>,
   document.getElementById("root")
 );
