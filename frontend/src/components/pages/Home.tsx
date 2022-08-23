@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {Profile HomeProject} from "../organisms";
+import {Profile, HomeProject} from "../organisms";
 
 const Home: FC = () => {
     return (
