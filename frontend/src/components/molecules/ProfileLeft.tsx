@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {UserName, EditProfileButton} from "../atoms";
+import {BaseEditButton} from "../atoms";
 import {BsPersonCircle} from "react-icons/bs"
 
 const ProfileLeft: FC = () => {
@@ -9,10 +9,10 @@ const ProfileLeft: FC = () => {
                 <BsPersonCircle size={60} className="fill-zinc-600" />
             </div>
             <div className="mb-6">
-                <UserName />
+                <p>Konishi Kyosuke</p>
             </div>
             <div>
-                <EditProfileButton />
+                <BaseEditButton content="Edit Profile" />
             </div>
         </div>
     );
