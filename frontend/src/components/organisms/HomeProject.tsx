@@ -10,7 +10,7 @@ type Props = {
 const HomeProject: FC<Props> = memo(function homeProject(props: Props) {
     const {items} = props;
     return (
-        <div className="flex justify-center flex-col w-[600px] mx-auto my-5">
+        <div className="flex justify-center flex-col w-[600px] mx-auto mb-5">
             <BaseTitle title="PROJECT" />
             <div className="mt-5" />
             <ProjectList items={items} />
