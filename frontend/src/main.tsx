@@ -1,10 +1,21 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App'
-import './index.css'
+import ReactDOM from "react-dom";
+import {HashRouter, Route, Routes} from "react-router-dom";
+import {Layout, Home} from "./components/pages";
+import "./index.css";
+import "./styles/Ants.scss";
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-)
+
+ReactDOM.render(
+    <HashRouter>
+        <Routes>
+            <Route path="/"
+                element={
+                    <Layout>
+                        <Home/>
+                    </Layout>
+                }
+            />
+        </Routes>  
+  </HashRouter>,
+  document.getElementById("root")
+);
