@@ -28,8 +28,8 @@ class SwaggerConfig {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2) //
             .apiInfo(getApiInfo()) //
-            .securityContexts(Lists.newArrayList(getSecurityContext())) //
-            .securitySchemes(Lists.newArrayList(getApiKey())) //
+//            .securityContexts(Lists.newArrayList(getSecurityContext())) //
+//            .securitySchemes(Lists.newArrayList(getApiKey())) //
             .select() //
             .apis(RequestHandlerSelectors.any()) //
             .paths(PathSelectors.regex("/api/v1/.*")) //
@@ -42,16 +42,16 @@ class SwaggerConfig {
                        .version("1.0.0")
                        .build();
     }
-    private SecurityContext getSecurityContext() {
-        return SecurityContext.builder().securityReferences(getDefaultAuth()).build();
-    }
-    private List<SecurityReference> getDefaultAuth() {
-        AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
-        AuthorizationScope[] authorizationScopeList = new AuthorizationScope[1];
-        authorizationScopeList[0] = authorizationScope;
-        return Lists.newArrayList(new SecurityReference("JWT", authorizationScopeList));
-    }
-    private ApiKey getApiKey() {
-        return new ApiKey("JWT", "Authorization", "password");
-    }
+//    private SecurityContext getSecurityContext() {
+//        return SecurityContext.builder().securityReferences(getDefaultAuth()).build();
+//    }
+//    private List<SecurityReference> getDefaultAuth() {
+//        AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
+//        AuthorizationScope[] authorizationScopeList = new AuthorizationScope[1];
+//        authorizationScopeList[0] = authorizationScope;
+//        return Lists.newArrayList(new SecurityReference("JWT", authorizationScopeList));
+//    }
+//    private ApiKey getApiKey() {
+//        return new ApiKey("JWT", "Authorization", "password");
+//    }
 }
