@@ -1,9 +1,9 @@
-import {FC} from "react";
+import React , {FC} from "react";
 import {BaseEditButton} from "../atoms";
-import {BsPersonCircle} from "react-icons/bs"
+import {BsPersonCircle} from "react-icons/bs";
 
 const ProfileLeft: FC = () => {
-    return ( 
+    return (
         <div className="w-[45%] flex justify-center flex-col pl-10 rounded-3xl text-center">
             <div className="mb-4 my-0 mx-auto">
                 <BsPersonCircle size={60} className="fill-zinc-600" />

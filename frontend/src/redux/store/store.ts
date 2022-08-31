@@ -1,7 +1,7 @@
-import { createStore as reduxCreateStore, combineReducers, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk'
-import { createLogger } from 'redux-logger';
-import { SampleReducer } from '../utils/sample';
+import { createStore as reduxCreateStore, combineReducers, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import { createLogger } from "redux-logger";
+import { SampleReducer } from "../utils/sample";
 
 const createStore = () => {
     const logger = createLogger({
@@ -12,14 +12,14 @@ const createStore = () => {
     return reduxCreateStore(
         combineReducers({
             sample: SampleReducer,
-    }),
+        }),
 
-    applyMiddleware(
-        logger,
-        thunk
-    )
-  )
-}
+        applyMiddleware(
+            logger,
+            thunk
+        )
+    );
+};
 
 const store = createStore();
 

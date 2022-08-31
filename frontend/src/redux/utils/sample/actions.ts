@@ -1,5 +1,3 @@
-import { SampleType } from "./types";
-
 export const CHANGE_SAMPLE = "CHANGE_SAMPLE";
 export const changeSampleAction = (isTrue) => {
     return {
