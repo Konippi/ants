@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
+import React, { Provider } from "react-redux";
 import {HashRouter, Route, Routes} from "react-router-dom";
 import { Layout } from "./components/layouts";
 import {Home} from "./components/pages";
