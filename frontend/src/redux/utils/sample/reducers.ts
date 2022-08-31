@@ -1,4 +1,3 @@
-import { Action } from "redux";
 import * as Actions from "./actions";
 import { SampleType } from "./types";
 
