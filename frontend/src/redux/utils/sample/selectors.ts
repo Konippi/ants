@@ -5,5 +5,5 @@ const SampleSelector = (state: StoreType) => state.sample;
 
 export const getSample = createSelector (
     [SampleSelector],
-    state => state.isTrue
+    state => state
 );

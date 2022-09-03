@@ -4,21 +4,21 @@ import { StoreType } from "../../redux/store";
 import { ColorType, getColor } from "../../redux/utils/color";
 
 type Props = {
-    title: string;
+    text: string;
+    handleClick: () => void;
 }
 
-const BaseTitle: FC<Props> = (props: Props) => {
-    const {title} = props;
+const BaseTextButton: FC<Props> = (props: Props) => {
+    const {text, handleClick} = props;
     const selector = useSelector((state: StoreType) => state);
     const color: ColorType = getColor(selector);
     
     return (
-        <h2 className="px-4 py-1.5 rounded-xl leading-none w-fit text-xs"
+        <button className="hover:opacity-80 rounded-lg px-5 py-4 text-center w-full"
             style={color.mainColor}
-        >
-            {title}
-        </h2>
+            onClick={handleClick}
+        >{text}</button>
     );
 };
 
-export default BaseTitle;
+export default BaseTextButton;
