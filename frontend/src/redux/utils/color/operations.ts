@@ -24,7 +24,7 @@ export const changeColor = () => {
                 color: "#ffffff",
             },
             mainColor : {
-                background: "#191970",
+                background: "#2f4f4f",
                 color: "#ffffff",
             },
         }));
