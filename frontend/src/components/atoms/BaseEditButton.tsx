@@ -1,4 +1,7 @@
 import React, {FC} from "react";
+import { useSelector } from "react-redux";
+import { StoreType } from "../../redux/store";
+import { ColorType, getColor } from "../../redux/utils/color";
 
 type Props = {
     content: string;
@@ -6,9 +9,13 @@ type Props = {
 
 const BaseEditButton: FC<Props> = (props: Props) => {
     const {content} = props;
+    const selector = useSelector((state: StoreType) => state);
+    const color: ColorType = getColor(selector);
 
     return (
-        <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-2xl shadow">
+        <button className="py-2 px-4 border rounded-2xl hover:opacity-80"
+            style={{...color.baseColor, borderColor: color.baseColor.color}}
+        >
             {content}
         </button>
     );

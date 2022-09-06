@@ -2,6 +2,8 @@ import { createStore as reduxCreateStore, combineReducers, applyMiddleware } fro
 import thunk from "redux-thunk";
 import { createLogger } from "redux-logger";
 import { SampleReducer } from "../utils/sample";
+import { AllProjectsReducer } from "../utils/allProjects";
+import { ColorReducer } from "../utils/color";
 
 const createStore = () => {
     const logger = createLogger({
@@ -11,7 +13,10 @@ const createStore = () => {
 
     return reduxCreateStore(
         combineReducers({
+            // utils
             sample: SampleReducer,
+            allProjects: AllProjectsReducer,
+            color: ColorReducer,
         }),
 
         applyMiddleware(

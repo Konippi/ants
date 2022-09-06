@@ -1,0 +1,17 @@
+TRUNCATE TABLE user;
+TRUNCATE TABLE project;
+TRUNCATE TABLE r_user_project;
+INSERT INTO user(name, password, mail, github_name, account_type) VALUES ('Sample Taro', 'password', 'taro@sample.co.jp', 'taroSample', 0);
+INSERT INTO user(name, password, mail, github_name, account_type) VALUES ('Sample Jiro', 'password', 'jiro@sample.co.jp', 'jiroSample', 0);
+INSERT INTO project(name) VALUES ('TaroProject1');
+INSERT INTO project(name) VALUES ('TaroProject2');
+INSERT INTO project(name) VALUES ('TaroProject3');
+INSERT INTO project(name) VALUES ('TaroProject4');
+INSERT INTO project(name) VALUES ('JiroProject1');
+INSERT INTO project(name) VALUES ('JiroProject2');
+INSERT INTO r_user_project(user_id, project_id) VALUES (1, 1);
+INSERT INTO r_user_project(user_id, project_id) VALUES (1, 2);
+INSERT INTO r_user_project(user_id, project_id) VALUES (1, 3);
+INSERT INTO r_user_project(user_id, project_id) VALUES (1, 4);
+INSERT INTO r_user_project(user_id, project_id) VALUES (2, 5);
+INSERT INTO r_user_project(user_id, project_id) VALUES (2, 6);
