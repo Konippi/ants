@@ -4,6 +4,7 @@ import { createLogger } from "redux-logger";
 import { SampleReducer } from "../utils/sample";
 import { AllProjectsReducer } from "../utils/allProjects";
 import { ColorReducer } from "../utils/color";
+import { UserInfoReducer } from "../utils/userInfo";
 
 const createStore = () => {
     const logger = createLogger({
@@ -15,6 +16,7 @@ const createStore = () => {
         combineReducers({
             // utils
             sample: SampleReducer,
+            userInfo: UserInfoReducer,
             allProjects: AllProjectsReducer,
             color: ColorReducer,
         }),

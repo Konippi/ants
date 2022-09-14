@@ -186,6 +186,31 @@ export type ResponseEntityStatusCodeEnum = typeof ResponseEntityStatusCodeEnum[k
 /**
  * 
  * @export
+ * @interface UserInfoModel
+ */
+export interface UserInfoModel {
+    /**
+     * 
+     * @type {string}
+     * @memberof UserInfoModel
+     */
+    'country'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserInfoModel
+     */
+    'githubName'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserInfoModel
+     */
+    'mail'?: string;
+}
+/**
+ * 
+ * @export
  * @interface UserModel
  */
 export interface UserModel {
@@ -788,15 +813,15 @@ export const UserControllerApiAxiosParamCreator = function (configuration?: Conf
         },
         /**
          * 
-         * @summary getUserById
+         * @summary getUserInfoByUserId
          * @param {number} userId userId
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUserByIdUsingGET: async (userId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getUserInfoByUserIdUsingGET: async (userId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'userId' is not null or undefined
-            assertParamExists('getUserByIdUsingGET', 'userId', userId)
-            const localVarPath = `/api/v1/user/userId`
+            assertParamExists('getUserInfoByUserIdUsingGET', 'userId', userId)
+            const localVarPath = `/api/v1/user/{userId}`
                 .replace(`{${"userId"}}`, encodeURIComponent(String(userId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -837,7 +862,7 @@ export const UserControllerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createUserUsingPOST(requestBody: UserRequestBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseEntity>> {
+        async createUserUsingPOST(requestBody: UserRequestBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createUserUsingPOST(requestBody, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -849,7 +874,7 @@ export const UserControllerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async editUserUsingPUT(userId: number, requestBody: UserRequestBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseEntity>> {
+        async editUserUsingPUT(userId: number, requestBody: UserRequestBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.editUserUsingPUT(userId, requestBody, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -865,13 +890,13 @@ export const UserControllerApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary getUserById
+         * @summary getUserInfoByUserId
          * @param {number} userId userId
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUserByIdUsingGET(userId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserModel>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getUserByIdUsingGET(userId, options);
+        async getUserInfoByUserIdUsingGET(userId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserInfoModel>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUserInfoByUserIdUsingGET(userId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -891,7 +916,7 @@ export const UserControllerApiFactory = function (configuration?: Configuration,
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createUserUsingPOST(requestBody: UserRequestBody, options?: any): AxiosPromise<ResponseEntity> {
+        createUserUsingPOST(requestBody: UserRequestBody, options?: any): AxiosPromise<string> {
             return localVarFp.createUserUsingPOST(requestBody, options).then((request) => request(axios, basePath));
         },
         /**
@@ -902,7 +927,7 @@ export const UserControllerApiFactory = function (configuration?: Configuration,
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        editUserUsingPUT(userId: number, requestBody: UserRequestBody, options?: any): AxiosPromise<ResponseEntity> {
+        editUserUsingPUT(userId: number, requestBody: UserRequestBody, options?: any): AxiosPromise<string> {
             return localVarFp.editUserUsingPUT(userId, requestBody, options).then((request) => request(axios, basePath));
         },
         /**
@@ -916,13 +941,13 @@ export const UserControllerApiFactory = function (configuration?: Configuration,
         },
         /**
          * 
-         * @summary getUserById
+         * @summary getUserInfoByUserId
          * @param {number} userId userId
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUserByIdUsingGET(userId: number, options?: any): AxiosPromise<UserModel> {
-            return localVarFp.getUserByIdUsingGET(userId, options).then((request) => request(axios, basePath));
+        getUserInfoByUserIdUsingGET(userId: number, options?: any): AxiosPromise<UserInfoModel> {
+            return localVarFp.getUserInfoByUserIdUsingGET(userId, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -972,14 +997,14 @@ export class UserControllerApi extends BaseAPI {
 
     /**
      * 
-     * @summary getUserById
+     * @summary getUserInfoByUserId
      * @param {number} userId userId
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserControllerApi
      */
-    public getUserByIdUsingGET(userId: number, options?: AxiosRequestConfig) {
-        return UserControllerApiFp(this.configuration).getUserByIdUsingGET(userId, options).then((request) => request(this.axios, this.basePath));
+    public getUserInfoByUserIdUsingGET(userId: number, options?: AxiosRequestConfig) {
+        return UserControllerApiFp(this.configuration).getUserInfoByUserIdUsingGET(userId, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

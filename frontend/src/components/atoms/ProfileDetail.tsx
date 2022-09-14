@@ -2,7 +2,7 @@ import React, {FC, ReactNode} from "react";
 
 type Props = {
     icon: ReactNode;
-    content: string;
+    content: string | undefined;
 };
 
 const ProfileDetail: FC<Props> = (props: Props) => {

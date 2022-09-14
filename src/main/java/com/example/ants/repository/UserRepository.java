@@ -19,7 +19,7 @@ public class UserRepository {
         return userMapper.selectByExample(null);
     }
 
-    public Optional<User> selectUserById(final int userId) {
+    public Optional<User> selectUserInfoByUserId(final int userId) {
         final var example = new UserExample();
         example.createCriteria().andIdEqualTo(userId);
         final var results = userMapper.selectByExample(example);

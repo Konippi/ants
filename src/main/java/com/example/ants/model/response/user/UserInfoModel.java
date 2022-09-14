@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Getter;
 
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
 @Getter
 @Builder
-public class UserModel {
-    private int userId;
-    private String name;
+public class UserInfoModel {
+    private String mail;
+    private String githubName;
+    private String country;
 }
