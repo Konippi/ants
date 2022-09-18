@@ -1,11 +1,9 @@
 import React, { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { UserInfoModel } from "../../client";
 import { StoreType } from "../../redux/store";
 import { AllProjectsType, getAllProjects } from "../../redux/utils/allProjects";
 import { ColorType, getColor } from "../../redux/utils/color";
 import { changeSample, getSample, SampleType } from "../../redux/utils/sample";
-import { getUserInfo } from "../../redux/utils/userInfo";
 import { BaseModal } from "../molecules";
 import { Profile, HomeProject, SampleModalContent } from "../organisms";
 
