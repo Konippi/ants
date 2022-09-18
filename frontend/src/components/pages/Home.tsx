@@ -27,12 +27,13 @@ const Home: FC = () => {
             >Open Modal</button>
             {/* test */}
 
-            <Profile/>
+            <Profile />
             <div className="border-t border-solid my-8"
                 style={{borderColor: color.baseColor.color}}
-            ></div>
+            >
+            </div>
             <HomeProject items={allProjects.projects} />
-            
+
             {sample.isTrue && (
                 <BaseModal
                     title="Sample"

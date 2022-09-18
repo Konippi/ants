@@ -4,7 +4,7 @@ import com.example.ants.enums.error.DetailErrorMessage;
 import com.example.ants.enums.error.ErrorCode;
 import com.example.ants.exception.ApiException;
 import com.example.ants.model.request.user.UserRequestBody;
-import com.example.ants.model.response.user.UserModel;
+import com.example.ants.model.response.user.UserInfoModel;
 import com.example.ants.model.response.user.UserResponse;
 import com.example.ants.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -27,13 +27,13 @@ public class UserController {
         return new ResponseEntity<>(userService.getAllUsersList(), HttpStatus.OK);
     }
 
-    @GetMapping("/userId")
-    public ResponseEntity<UserModel> getUserById(@PathVariable("userId") final int userId) {
-        return new ResponseEntity<>(userService.getUserById(userId), HttpStatus.OK);
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserInfoModel> getUserInfoByUserId(@PathVariable("userId") final int userId) {
+        return new ResponseEntity<>(userService.getUserInfoByUserId(userId), HttpStatus.OK);
     }
 
     @PostMapping("/signup")
-    public ResponseEntity createUser(@RequestBody @Validated UserRequestBody requestBody, BindingResult result) throws ApiException {
+    public ResponseEntity<String> createUser(@RequestBody @Validated UserRequestBody requestBody, BindingResult result) throws ApiException {
         if (result.hasErrors()) {
             throw new ApiException(ErrorCode.INVALID_QUERY_PARAMETER, DetailErrorMessage.INVALID_QUERY_PARAMETER.getMessage());
         }
@@ -47,11 +47,11 @@ public class UserController {
 
         userService.createUser(name, password, mail, githubName, country, accountType);
 
-        return new ResponseEntity(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/{userId}")
-    public ResponseEntity editUser(@PathVariable("userId") final int userId, @RequestBody @Validated UserRequestBody requestBody, BindingResult result) throws ApiException {
+    public ResponseEntity<String> editUser(@PathVariable("userId") final int userId, @RequestBody @Validated UserRequestBody requestBody, BindingResult result) throws ApiException {
         if (result.hasErrors()) {
             throw new ApiException(ErrorCode.INVALID_QUERY_PARAMETER, DetailErrorMessage.INVALID_QUERY_PARAMETER.getMessage());
         }
@@ -65,12 +65,12 @@ public class UserController {
 
         userService.editUser(userId, name, password, mail, githubName, country, accountType);
 
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @Delete("/{userId}")
-    public ResponseEntity deleteUser(@PathVariable("userId") final int userId) throws ApiException{
+    public ResponseEntity<String> deleteUser(@PathVariable("userId") final int userId) throws ApiException{
         userService.deleteUser(userId);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

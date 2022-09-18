@@ -4,6 +4,7 @@ import com.example.ants.db.entity.User;
 import com.example.ants.enums.error.DetailErrorMessage;
 import com.example.ants.enums.error.ErrorCode;
 import com.example.ants.exception.ApiException;
+import com.example.ants.model.response.user.UserInfoModel;
 import com.example.ants.model.response.user.UserModel;
 import com.example.ants.model.response.user.UserResponse;
 import com.example.ants.repository.UserRepository;
@@ -25,10 +26,10 @@ public class UserService {
             .build();
     }
 
-    public UserModel getUserById(final int userId) {
-        final var entity = userRepository.selectUserById(userId).orElseThrow(
+    public UserInfoModel getUserInfoByUserId(final int userId) {
+        final var entity = userRepository.selectUserInfoByUserId(userId).orElseThrow(
             () -> new ApiException(ErrorCode.INVALID_QUERY_PARAMETER, DetailErrorMessage.INVALID_QUERY_PARAMETER.getMessage()));
-        return UserModel.builder().userId(entity.getId()).name(entity.getName()).build();
+        return UserInfoModel.builder().mail(entity.getMail()).githubName(entity.getGithubName()).country(entity.getCountry()).build();
     }
 
     public User createUser(final String name, final String password, final String mail, final String githubName, final String country, final int accountType) {

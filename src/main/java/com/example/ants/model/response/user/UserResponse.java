@@ -1,5 +1,4 @@
 package com.example.ants.model.response.user;
-
 import lombok.Builder;
 import lombok.Getter;
 
