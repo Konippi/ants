@@ -2,12 +2,16 @@ import React, {FC, memo} from "react";
 
 type Props = {
     image: string;
+    size: string;
+    borderRadius?: string;
 }
 
 const ImageIcon: FC<Props> = memo(function imageIcon(props: Props) {
-    const {image} = props;
+    const {image, size, borderRadius} = props;
     return (
-        <div className="w-10 h-10 rounded bg-slate-50"></div>
+        <div style={{width: size, height: size, borderRadius: borderRadius}}
+            className="rounded bg-gray-400"
+        ></div>
     );
 });
 

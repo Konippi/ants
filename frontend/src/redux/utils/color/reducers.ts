@@ -12,7 +12,7 @@ export const initialState: ColorType = {
     },
 };
 
-export const ColorReducer = (state = initialState, action) => {
+export const ColorReducer = (state: ColorType = initialState, action: Actions.ActionType) => {
     switch(action.type) {
     case Actions.CHANGE_COLOR:
         return {

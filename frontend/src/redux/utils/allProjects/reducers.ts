@@ -1,12 +1,11 @@
+import { AllProjectResponse } from "../../../client";
 import * as Actions from "./actions";
-import { AllProjectsType } from "./types";
 
-export const initialState: AllProjectsType = {
-    isLoading: false,
-    isError: false,
+export const initialState: AllProjectResponse = {
+    projects: undefined
 };
 
-export const AllProjectsReducer = (state = initialState, action) => {
+export const AllProjectsReducer = (state: AllProjectResponse = initialState, action) => {
     switch(action.type) {
     case Actions.FETCH_ALL_PROJECTS:
         return {

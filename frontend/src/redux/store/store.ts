@@ -1,10 +1,11 @@
 import { createStore as reduxCreateStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { createLogger } from "redux-logger";
-import { SampleReducer } from "../utils/sample";
 import { AllProjectsReducer } from "../utils/allProjects";
 import { ColorReducer } from "../utils/color";
 import { UserInfoReducer } from "../utils/userInfo";
+import { ProjectApiStatusReducer } from "../project/projectApiStatus";
+import { ProjectInputReducer } from "../project/projectInput";
 
 const createStore = () => {
     const logger = createLogger({
@@ -14,8 +15,11 @@ const createStore = () => {
 
     return reduxCreateStore(
         combineReducers({
+            // ProjectPage
+            projectApiStatus: ProjectApiStatusReducer,
+            projectInput: ProjectInputReducer,
+
             // utils
-            sample: SampleReducer,
             userInfo: UserInfoReducer,
             allProjects: AllProjectsReducer,
             color: ColorReducer,
