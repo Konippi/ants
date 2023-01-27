@@ -10,5 +10,5 @@ export const fetchUserInfoAction = (payload: UserInfoModel) => {
     return {
         type: FETCH_USER_INFO,
         payload: payload
-    }
+    };
 };
