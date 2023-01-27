@@ -18,11 +18,11 @@ const ProjectListItem: FC<Props> = (props: Props) => {
 
     return (
         <Link to={`/project/${item.id}`} className="w-full mb-4">
-            <div className="hover:opacity-90 w-full flex space-x-3 items-center px-3 py-3 rounded-md"
+            <div className="hover:opacity-90 w-full flex items-center px-3 py-3 rounded-md"
                 style={color.mainColor}
             >
                 <div className="w-[8%]">
-                    <ImageIcon image="sample"/>
+                    <ImageIcon size="2.5rem" image="sample"/>
                 </div>
                 <div className="w-[84%]">
                     <h2 className="ml-14">{item.name}</h2>

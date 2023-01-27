@@ -13,7 +13,7 @@ const BaseTitle: FC<Props> = (props: Props) => {
     const color: ColorType = getColor(selector);
     
     return (
-        <h2 className="px-4 py-1.5 rounded-xl leading-none w-fit text-xs"
+        <h2 className="px-4 py-1.5 rounded-xl leading-none w-fit text-xs h-fit"
             style={color.mainColor}
         >
             {title}

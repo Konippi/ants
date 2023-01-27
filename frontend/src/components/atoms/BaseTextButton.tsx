@@ -5,17 +5,18 @@ import { ColorType, getColor } from "../../redux/utils/color";
 
 type Props = {
     text: string;
+    width?: string;
     handleClick: () => void;
 }
 
 const BaseTextButton: FC<Props> = (props: Props) => {
-    const {text, handleClick} = props;
+    const {text, width, handleClick} = props;
     const selector = useSelector((state: StoreType) => state);
     const color: ColorType = getColor(selector);
     
     return (
-        <button className="hover:opacity-80 rounded-lg px-5 py-4 text-center w-full"
-            style={color.mainColor}
+        <button className="hover:opacity-80 rounded-lg px-5 py-3 text-center w-full"
+            style={{...color.mainColor, width:width}}
             onClick={handleClick}
         >{text}</button>
     );

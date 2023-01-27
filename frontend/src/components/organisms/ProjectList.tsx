@@ -9,7 +9,7 @@ type Props = {
 const ProjectList: FC<Props> = memo(function projectList(props: Props) {
     const {items} = props;
     return (
-        <div className="max-w-full flex justify-center flex-wrap">
+        <div className="w-full flex justify-center flex-wrap">
             {items?.map(e => <ProjectListItem key={e.id} item={e} />)}
         </div>
     );
