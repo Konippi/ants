@@ -464,203 +464,73 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andGithubNameIsNull() {
-            addCriterion("github_name is null");
+        public Criteria andGithubUrlIsNull() {
+            addCriterion("github_url is null");
             return (Criteria) this;
         }
 
-        public Criteria andGithubNameIsNotNull() {
-            addCriterion("github_name is not null");
+        public Criteria andGithubUrlIsNotNull() {
+            addCriterion("github_url is not null");
             return (Criteria) this;
         }
 
-        public Criteria andGithubNameEqualTo(String value) {
-            addCriterion("github_name =", value, "githubName");
+        public Criteria andGithubUrlEqualTo(String value) {
+            addCriterion("github_url =", value, "githubUrl");
             return (Criteria) this;
         }
 
-        public Criteria andGithubNameNotEqualTo(String value) {
-            addCriterion("github_name <>", value, "githubName");
+        public Criteria andGithubUrlNotEqualTo(String value) {
+            addCriterion("github_url <>", value, "githubUrl");
             return (Criteria) this;
         }
 
-        public Criteria andGithubNameGreaterThan(String value) {
-            addCriterion("github_name >", value, "githubName");
+        public Criteria andGithubUrlGreaterThan(String value) {
+            addCriterion("github_url >", value, "githubUrl");
             return (Criteria) this;
         }
 
-        public Criteria andGithubNameGreaterThanOrEqualTo(String value) {
-            addCriterion("github_name >=", value, "githubName");
+        public Criteria andGithubUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("github_url >=", value, "githubUrl");
             return (Criteria) this;
         }
 
-        public Criteria andGithubNameLessThan(String value) {
-            addCriterion("github_name <", value, "githubName");
+        public Criteria andGithubUrlLessThan(String value) {
+            addCriterion("github_url <", value, "githubUrl");
             return (Criteria) this;
         }
 
-        public Criteria andGithubNameLessThanOrEqualTo(String value) {
-            addCriterion("github_name <=", value, "githubName");
+        public Criteria andGithubUrlLessThanOrEqualTo(String value) {
+            addCriterion("github_url <=", value, "githubUrl");
             return (Criteria) this;
         }
 
-        public Criteria andGithubNameLike(String value) {
-            addCriterion("github_name like", value, "githubName");
+        public Criteria andGithubUrlLike(String value) {
+            addCriterion("github_url like", value, "githubUrl");
             return (Criteria) this;
         }
 
-        public Criteria andGithubNameNotLike(String value) {
-            addCriterion("github_name not like", value, "githubName");
+        public Criteria andGithubUrlNotLike(String value) {
+            addCriterion("github_url not like", value, "githubUrl");
             return (Criteria) this;
         }
 
-        public Criteria andGithubNameIn(List<String> values) {
-            addCriterion("github_name in", values, "githubName");
+        public Criteria andGithubUrlIn(List<String> values) {
+            addCriterion("github_url in", values, "githubUrl");
             return (Criteria) this;
         }
 
-        public Criteria andGithubNameNotIn(List<String> values) {
-            addCriterion("github_name not in", values, "githubName");
+        public Criteria andGithubUrlNotIn(List<String> values) {
+            addCriterion("github_url not in", values, "githubUrl");
             return (Criteria) this;
         }
 
-        public Criteria andGithubNameBetween(String value1, String value2) {
-            addCriterion("github_name between", value1, value2, "githubName");
+        public Criteria andGithubUrlBetween(String value1, String value2) {
+            addCriterion("github_url between", value1, value2, "githubUrl");
             return (Criteria) this;
         }
 
-        public Criteria andGithubNameNotBetween(String value1, String value2) {
-            addCriterion("github_name not between", value1, value2, "githubName");
-            return (Criteria) this;
-        }
-
-        public Criteria andCountryIsNull() {
-            addCriterion("country is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCountryIsNotNull() {
-            addCriterion("country is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCountryEqualTo(String value) {
-            addCriterion("country =", value, "country");
-            return (Criteria) this;
-        }
-
-        public Criteria andCountryNotEqualTo(String value) {
-            addCriterion("country <>", value, "country");
-            return (Criteria) this;
-        }
-
-        public Criteria andCountryGreaterThan(String value) {
-            addCriterion("country >", value, "country");
-            return (Criteria) this;
-        }
-
-        public Criteria andCountryGreaterThanOrEqualTo(String value) {
-            addCriterion("country >=", value, "country");
-            return (Criteria) this;
-        }
-
-        public Criteria andCountryLessThan(String value) {
-            addCriterion("country <", value, "country");
-            return (Criteria) this;
-        }
-
-        public Criteria andCountryLessThanOrEqualTo(String value) {
-            addCriterion("country <=", value, "country");
-            return (Criteria) this;
-        }
-
-        public Criteria andCountryLike(String value) {
-            addCriterion("country like", value, "country");
-            return (Criteria) this;
-        }
-
-        public Criteria andCountryNotLike(String value) {
-            addCriterion("country not like", value, "country");
-            return (Criteria) this;
-        }
-
-        public Criteria andCountryIn(List<String> values) {
-            addCriterion("country in", values, "country");
-            return (Criteria) this;
-        }
-
-        public Criteria andCountryNotIn(List<String> values) {
-            addCriterion("country not in", values, "country");
-            return (Criteria) this;
-        }
-
-        public Criteria andCountryBetween(String value1, String value2) {
-            addCriterion("country between", value1, value2, "country");
-            return (Criteria) this;
-        }
-
-        public Criteria andCountryNotBetween(String value1, String value2) {
-            addCriterion("country not between", value1, value2, "country");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccountTypeIsNull() {
-            addCriterion("account_type is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccountTypeIsNotNull() {
-            addCriterion("account_type is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccountTypeEqualTo(Integer value) {
-            addCriterion("account_type =", value, "accountType");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccountTypeNotEqualTo(Integer value) {
-            addCriterion("account_type <>", value, "accountType");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccountTypeGreaterThan(Integer value) {
-            addCriterion("account_type >", value, "accountType");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccountTypeGreaterThanOrEqualTo(Integer value) {
-            addCriterion("account_type >=", value, "accountType");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccountTypeLessThan(Integer value) {
-            addCriterion("account_type <", value, "accountType");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccountTypeLessThanOrEqualTo(Integer value) {
-            addCriterion("account_type <=", value, "accountType");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccountTypeIn(List<Integer> values) {
-            addCriterion("account_type in", values, "accountType");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccountTypeNotIn(List<Integer> values) {
-            addCriterion("account_type not in", values, "accountType");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccountTypeBetween(Integer value1, Integer value2) {
-            addCriterion("account_type between", value1, value2, "accountType");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccountTypeNotBetween(Integer value1, Integer value2) {
-            addCriterion("account_type not between", value1, value2, "accountType");
+        public Criteria andGithubUrlNotBetween(String value1, String value2) {
+            addCriterion("github_url not between", value1, value2, "githubUrl");
             return (Criteria) this;
         }
     }
