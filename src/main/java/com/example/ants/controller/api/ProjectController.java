@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/project")
-@CrossOrigin("http://localhost:3000")
 public class ProjectController {
 
     private final ProjectService projectService;
