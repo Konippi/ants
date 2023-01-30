@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 @Builder
 public class UserInfoModel {
+    private String name;
     private String mail;
-    private String githubName;
-    private String country;
+    private String githubUrl;
 }

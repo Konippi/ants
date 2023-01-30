@@ -20,20 +20,20 @@ public class ProjectService {
         return AllProjectResponse.builder().projects(projectRepository.selectAllProjectByUserId(userId)).build();
     }
 
-    public Project createProject(String name, int star, List<Integer> userIdList) {
+    public Project createProject(String name, String description, List<Integer> userIdList) {
         final var newProject = new Project();
         newProject.setName(name);
-        newProject.setStar(star);
+        newProject.setDescription(description);
         projectRepository.createProject(newProject);
         rUserProjectRepository.createRUserProject(newProject.getId(), userIdList);
         return newProject;
     }
 
-    public Project editProject(int projectId, String name, int star, List<Integer> userIdList) {
+    public Project editProject(int projectId, String name, String description, List<Integer> userIdList) {
         final var updatingProject = new Project();
         updatingProject.setId(projectId);
         updatingProject.setName(name);
-        updatingProject.setStar(star);
+        updatingProject.setDescription(description);
         projectRepository.editProject(updatingProject);
         rUserProjectRepository.deleteRUserProjectByProjectId((projectId));
         rUserProjectRepository.createRUserProject(projectId, userIdList);

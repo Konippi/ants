@@ -40,11 +40,9 @@ public class UserController {
         final String name = requestBody.getName();
         final String password = requestBody.getPassword();
         final String mail = requestBody.getMail();
-        final String githubName = requestBody.getGithubName();
-        final String country = requestBody.getCountry();
-        final int accountType = requestBody.getAccountType();
+        final String githubUrl = requestBody.getGithubUrl();
 
-        userService.createUser(name, password, mail, githubName, country, accountType);
+        userService.createUser(name, password, mail, githubUrl);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -58,11 +56,9 @@ public class UserController {
         final String name = requestBody.getName();
         final String password = requestBody.getPassword();
         final String mail = requestBody.getMail();
-        final String githubName = requestBody.getGithubName();
-        final String country = requestBody.getCountry();
-        final int accountType = requestBody.getAccountType();
+        final String githubUrl = requestBody.getGithubUrl();
 
-        userService.editUser(userId, name, password, mail, githubName, country, accountType);
+        userService.editUser(userId, name, password, mail, githubUrl);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
