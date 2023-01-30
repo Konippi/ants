@@ -16,6 +16,9 @@
     "codegen": "openapi-generator-cli generate -g typescript-axios -i ../swagger.json -o ./src/client/"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/material": "^5.11.6",
     "@openapitools/openapi-generator-cli": "^2.5.1",
     "dotenv": "^8.2.0",
     "dotenv-expand": "^5.1.0",
