@@ -1,5 +1,6 @@
 package com.example.ants.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -16,8 +17,10 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    @Value("${spring.profiles.active:}")
+    private String profile;
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 //        http.authorizeRequests()
 //                .antMatchers("/")
 //                .permitAll()
@@ -25,9 +28,17 @@ public class WebSecurityConfig {
 //                .permitAll()
 //                .anyRequest()
 //                .authenticated();
-//
-//        return http.build();
-//    }
+
+        // ローカル環境のみ
+        if (profile.equals("local")) {
+            // Cors設定を適応
+            http.cors().configurationSource(this.corsConfigurationSource());
+            // csrfを無効化
+            http.csrf().disable();
+        }
+
+        return http.build();
+    }
 
     @Bean
     @Profile("local")
