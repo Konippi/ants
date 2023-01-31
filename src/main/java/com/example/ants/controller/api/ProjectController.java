@@ -20,32 +20,34 @@ public class ProjectController {
 
     private final ProjectService projectService;
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<AllProjectResponse> getAllProjectByUserId(@PathVariable("userId") int userId) {
-        return new ResponseEntity<>(projectService.getAllProjectByUserId(userId), HttpStatus.OK);
+    @GetMapping()
+    public ResponseEntity<AllProjectResponse> getAllProjectsInLoginUser() {
+        // TODO: ログイン処理実装後ログインユーザーのIDを取得
+        final int loginUserId = 1;
+        return new ResponseEntity<>(projectService.getAllProjectWithUsersByUserId(loginUserId), HttpStatus.OK);
     }
 
     @PostMapping()
-    public ResponseEntity createProject(@RequestBody @Validated ProjectRequestBody requestBody, BindingResult result) throws ApiException {
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createProject(@RequestBody @Validated ProjectRequestBody requestBody, BindingResult result) throws ApiException {
         if (result.hasErrors()) {
             throw new ApiException(ErrorCode.INVALID_QUERY_PARAMETER, DetailErrorMessage.INVALID_QUERY_PARAMETER.getMessage());
         }
         projectService.createProject(requestBody.getName(), requestBody.getDescription(), requestBody.getUserIdList());
-        return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @PutMapping("/{projectId}")
-    public ResponseEntity editProject(@PathVariable("projectId") int projectId, @RequestBody @Validated ProjectRequestBody requestBody, BindingResult result) throws ApiException {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void editProject(@PathVariable("projectId") int projectId, @RequestBody @Validated ProjectRequestBody requestBody, BindingResult result) throws ApiException {
         if(result.hasErrors()) {
             throw new ApiException(ErrorCode.INVALID_QUERY_PARAMETER, DetailErrorMessage.INVALID_QUERY_PARAMETER.getMessage());
         }
         projectService.editProject(projectId, requestBody.getName(), requestBody.getDescription(), requestBody.getUserIdList());
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/{projectId}")
-    public ResponseEntity deleteProject(@PathVariable("projectId") int projectId) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteProject(@PathVariable("projectId") int projectId) {
         projectService.deleteProject(projectId);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }

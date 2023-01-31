@@ -2,12 +2,15 @@ package com.example.ants.service;
 
 import com.example.ants.db.entity.Project;
 import com.example.ants.model.response.project.AllProjectResponse;
+import com.example.ants.model.response.project.ProjectWithUsers;
+import com.example.ants.model.response.user.UserModel;
 import com.example.ants.repository.ProjectRepository;
 import com.example.ants.repository.RUserProjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -16,8 +19,21 @@ public class ProjectService {
     private final ProjectRepository projectRepository;
     private final RUserProjectRepository rUserProjectRepository;
 
-    public AllProjectResponse getAllProjectByUserId(int userId) {
-        return AllProjectResponse.builder().projects(projectRepository.selectAllProjectByUserId(userId)).build();
+    public AllProjectResponse getAllProjectWithUsersByUserId(int userId) {
+        final var projectWithUsersList = projectRepository.selectAllProjectWithUsersByUserId(userId);
+        return AllProjectResponse.builder()
+                .projects(projectWithUsersList.stream()
+                        .map(e -> ProjectWithUsers.builder()
+                                .project(e.getProject())
+                                .users(e.getUsers().stream()
+                                        .map(u -> UserModel.builder()
+                                                .userId(u.getId())
+                                                .name(u.getName())
+                                                .build())
+                                        .collect(Collectors.toList()))
+                                .build())
+                        .collect(Collectors.toList()))
+                .build();
     }
 
     public Project createProject(String name, String description, List<Integer> userIdList) {
@@ -42,6 +58,5 @@ public class ProjectService {
 
     public void deleteProject(int projectId) {
         projectRepository.deleteProject(projectId);
-        rUserProjectRepository.deleteRUserProjectByProjectId(projectId);
     }
 }
