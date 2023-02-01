@@ -6,7 +6,7 @@ import com.example.ants.enums.error.ErrorCode;
 import com.example.ants.exception.ApiException;
 import com.example.ants.model.response.user.UserInfoModel;
 import com.example.ants.model.response.user.UserModel;
-import com.example.ants.model.response.user.UserResponse;
+import com.example.ants.model.response.user.UsersResponse;
 import com.example.ants.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,9 +19,9 @@ import java.util.stream.Collectors;
 public class UserService {
     private final UserRepository userRepository;
 
-    public UserResponse getAllUsersList() {
+    public UsersResponse getAllUsersList() {
         final List<User> allUsersList =  userRepository.selectAllUsers();
-        return UserResponse.builder()
+        return UsersResponse.builder()
             .users(allUsersList.stream().map(e -> UserModel.builder().userId(e.getId()).name(e.getName()).build()).collect(Collectors.toList()))
             .build();
     }
@@ -32,7 +32,7 @@ public class UserService {
         return UserInfoModel.builder().name(entity.getName()).mail(entity.getMail()).githubUrl(entity.getGithubUrl()).build();
     }
 
-    public User createUser(final String name, final String password, final String mail, final String githubUrl) {
+    public void createUser(final String name, final String password, final String mail, final String githubUrl) {
         final var newUser = new User();
 
         newUser.setName(name);
@@ -41,10 +41,9 @@ public class UserService {
         newUser.setGithubUrl(githubUrl);
 
         userRepository.createUser(newUser);
-        return newUser;
     }
 
-    public User editUser(final int userId, final String name, final String password, final String mail, final String githubUrl) {
+    public void editUser(final int userId, final String name, final String password, final String mail, final String githubUrl) {
         final var updatingUser = new User();
 
         updatingUser.setId(userId);
@@ -54,7 +53,6 @@ public class UserService {
         updatingUser.setGithubUrl(githubUrl);
 
         userRepository.editUser(updatingUser);
-        return updatingUser;
     }
 
     public void deleteUser(final int userId) {
