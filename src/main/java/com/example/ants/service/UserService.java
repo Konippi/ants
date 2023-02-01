@@ -29,33 +29,29 @@ public class UserService {
     public UserInfoModel getUserInfoByUserId(final int userId) {
         final var entity = userRepository.selectUserInfoByUserId(userId).orElseThrow(
             () -> new ApiException(ErrorCode.INVALID_QUERY_PARAMETER, DetailErrorMessage.INVALID_QUERY_PARAMETER.getMessage()));
-        return UserInfoModel.builder().mail(entity.getMail()).githubName(entity.getGithubName()).country(entity.getCountry()).build();
+        return UserInfoModel.builder().name(entity.getName()).mail(entity.getMail()).githubUrl(entity.getGithubUrl()).build();
     }
 
-    public User createUser(final String name, final String password, final String mail, final String githubName, final String country, final int accountType) {
+    public User createUser(final String name, final String password, final String mail, final String githubUrl) {
         final var newUser = new User();
 
         newUser.setName(name);
         newUser.setPassword(password);
         newUser.setMail(mail);
-        newUser.setGithubName(githubName);
-        newUser.setCountry(country);
-        newUser.setAccountType(accountType);
+        newUser.setGithubUrl(githubUrl);
 
         userRepository.createUser(newUser);
         return newUser;
     }
 
-    public User editUser(final int userId, final String name, final String password, final String mail, final String githubName, final String country, final int accountType) {
+    public User editUser(final int userId, final String name, final String password, final String mail, final String githubUrl) {
         final var updatingUser = new User();
 
         updatingUser.setId(userId);
         updatingUser.setName(name);
         updatingUser.setPassword(password);
         updatingUser.setMail(mail);
-        updatingUser.setGithubName(githubName);
-        updatingUser.setCountry(country);
-        updatingUser.setAccountType(accountType);
+        updatingUser.setGithubUrl(githubUrl);
 
         userRepository.editUser(updatingUser);
         return updatingUser;

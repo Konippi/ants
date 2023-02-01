@@ -12,7 +12,8 @@ public class ProjectRequestBody {
     @Size(max = 16)
     private String name;
 
-    private int star;
+    @Size(max = 256)
+    private String description;
 
     private List<Integer> userIdList;
 }

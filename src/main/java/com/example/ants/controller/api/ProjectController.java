@@ -30,7 +30,7 @@ public class ProjectController {
         if (result.hasErrors()) {
             throw new ApiException(ErrorCode.INVALID_QUERY_PARAMETER, DetailErrorMessage.INVALID_QUERY_PARAMETER.getMessage());
         }
-        projectService.createProject(requestBody.getName(), requestBody.getStar(), requestBody.getUserIdList());
+        projectService.createProject(requestBody.getName(), requestBody.getDescription(), requestBody.getUserIdList());
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
@@ -39,7 +39,7 @@ public class ProjectController {
         if(result.hasErrors()) {
             throw new ApiException(ErrorCode.INVALID_QUERY_PARAMETER, DetailErrorMessage.INVALID_QUERY_PARAMETER.getMessage());
         }
-        projectService.editProject(projectId, requestBody.getName(), requestBody.getStar(), requestBody.getUserIdList());
+        projectService.editProject(projectId, requestBody.getName(), requestBody.getDescription(), requestBody.getUserIdList());
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
