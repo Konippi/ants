@@ -1,16 +1,22 @@
 import React, {FC, memo} from "react";
-import { Project } from "../../client";
+import { Project, ProjectWithUsers } from "../../client";
 import { ProjectSquareListItem } from "../molecules";
 
 type Props = {
-    items?: Array<Project>;
+    projects?: Array<ProjectWithUsers>;
+    handleOpenInfoModal: (project: ProjectWithUsers) => void;
 }
 
 const ProjectSquareList: FC<Props> = memo(function projectSquareList(props: Props) {
-    const {items} = props;
+    const {projects, handleOpenInfoModal} = props;
     return (
         <div className="w-full flex flex-wrap mt-12">
-            {items?.map(e => <ProjectSquareListItem key={e.id} item={e} />)}
+            {projects?.map(e => (
+                <ProjectSquareListItem key={e.project?.id}
+                    project={e.project as Project}
+                    handleClick={() => handleOpenInfoModal(e)}
+                />
+            ))}
         </div>
     );
 });

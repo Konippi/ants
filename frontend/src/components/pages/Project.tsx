@@ -1,32 +1,77 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createNewProject } from "../../redux/project/projectApiStatus";
-import { cleanProjectInput } from "../../redux/project/projectInput";
+import { ProjectWithUsers } from "../../client";
+import { createNewProjectAPI, deleteProjectAPI, editProjectAPI } from "../../redux/project/projectApiStatus";
+import { cleanProjectInput, setProjectInput } from "../../redux/project/projectInput";
 import { StoreType } from "../../redux/store";
-import { getAllProjects } from "../../redux/utils/allProjects";
+import { getAllProjectsInLoginUser } from "../../redux/utils/allProjectsInLoginUser";
+import { getUserInfo } from "../../redux/utils/userInfo";
 import { BaseTextButton, BaseTitle } from "../atoms";
 import { BaseModal } from "../molecules";
-import { NewProjectModalContent, ProjectPageBottomList, ProjectSquareList } from "../organisms";
+import {
+    ProjectInfoModalContent,
+    ProjectInputModalContent,
+    ProjectPageBottomList,
+    ProjectSquareList
+} from "../organisms";
 
 const Project: FC = () => {
     const title = "Project Management";
     const selector = useSelector((state: StoreType) => state);
-    const allProjects = getAllProjects(selector);
+    const allProjects = getAllProjectsInLoginUser(selector);
+    const userInfo = getUserInfo(selector);
     const dispatch = useDispatch();
 
-    const [isOpenedModal, setIsOpenedModal] = useState(false);
-    const handleOpenModal = () => {
-        setIsOpenedModal(true);
+    useEffect(() => {
+        dispatch(cleanProjectInput());
+    }, [userInfo.id]);
+
+    // 詳細モーダルの開閉状態 + プロジェクト詳細の情報
+    const [isOpenedInfoModal, setIsOpenedInfoModal] = useState(false);
+    const [projectInfo, setProjectInfo] = useState<ProjectWithUsers>();
+    const handleOpenInfoModal = (project: ProjectWithUsers) => {
+        setProjectInfo(project);
+        setIsOpenedInfoModal(true);
     };
-    const handleCloseModal = () => {
-        setIsOpenedModal(false);
+    const handleCloseInfoModal = () => {
+        setIsOpenedInfoModal(false);
     };
 
-    //　新しいプロジェクトの作成
-    const handleSubmit = () => {
-        dispatch(createNewProject());
+    // 入力モーダルの開閉状態
+    const [isOpenedInputModal, setIsOpenedInputModal] = useState(false);
+    const handleOpenInputModal = () => {
+        setIsOpenedInputModal(true);
+    };
+    const handleCloseInputModal = () => {
         dispatch(cleanProjectInput());
-        handleCloseModal()
+        setIsOpenedInputModal(false);
+        setIsOpenedEditModal(false);
+    };
+
+    // 新しいプロジェクトの作成
+    const handleCreate = () => {
+        dispatch(createNewProjectAPI());
+        handleCloseInputModal();
+    };
+
+    // プロジェクト削除
+    const handleDelete = () => {
+        if(confirm(`${projectInfo?.project?.name}を本当に削除しますか?`)) {
+            dispatch(deleteProjectAPI(projectInfo?.project?.id as number));
+        }
+    };
+
+    // 編集モーダルを開く
+    const [isOpenedEditModal, setIsOpenedEditModal] = useState(false);
+    const handleOpenEditModal = () => {
+        dispatch(setProjectInput(projectInfo as ProjectWithUsers));
+        setIsOpenedEditModal(true);
+        handleOpenInputModal();
+    };
+
+    // プロジェクトをUpdate
+    const handleEditProject = () => {
+        dispatch(editProjectAPI(projectInfo?.project?.id as number));
     };
 
     return (
@@ -36,19 +81,39 @@ const Project: FC = () => {
                 <BaseTextButton
                     text="New Project"
                     width="200px"
-                    handleClick={handleOpenModal}
+                    handleClick={handleOpenInputModal}
                 />
             </div>
-            <ProjectSquareList items={allProjects.projects} />
-            <ProjectPageBottomList projects={allProjects.projects} />
-            
-            {isOpenedModal && (
+            <ProjectSquareList
+                projects={allProjects.projects}
+                handleOpenInfoModal={handleOpenInfoModal}
+            />
+            <ProjectPageBottomList
+                projects={allProjects.projects}
+                handleOpenInfoModal={handleOpenInfoModal}
+            />
+            {isOpenedInfoModal && (
                 <BaseModal
-                    title="New Project"
-                    buttonText="Create"
-                    content={<NewProjectModalContent/>}
-                    handleClick={handleSubmit}
-                    handleClose={handleCloseModal}
+                    title="Project Information"
+                    content={
+                        <ProjectInfoModalContent
+                            project={projectInfo}
+                            handleDelete={handleDelete}
+                            handleEdit={handleOpenEditModal}
+                        />
+                    }
+                    handleClose={handleCloseInfoModal}
+                />
+            )}
+            {isOpenedInputModal && (
+                <BaseModal
+                    title={isOpenedEditModal ? "Edit Project" : "New Project"}
+                    content={
+                        <ProjectInputModalContent
+                            handleClick={isOpenedEditModal ? handleEditProject : handleCreate}
+                        />
+                    }
+                    handleClose={handleCloseInputModal}
                 />
             )}
         </div>

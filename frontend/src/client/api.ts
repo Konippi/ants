@@ -29,10 +29,10 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 export interface AllProjectResponse {
     /**
      * 
-     * @type {Array<Project>}
+     * @type {Array<ProjectWithUsers>}
      * @memberof AllProjectResponse
      */
-    'projects'?: Array<Project>;
+    'projects'?: Array<ProjectWithUsers>;
 }
 /**
  * 
@@ -40,6 +40,12 @@ export interface AllProjectResponse {
  * @interface Project
  */
 export interface Project {
+    /**
+     * 
+     * @type {string}
+     * @memberof Project
+     */
+    'description'?: string;
     /**
      * 
      * @type {number}
@@ -52,12 +58,6 @@ export interface Project {
      * @memberof Project
      */
     'name'?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof Project
-     */
-    'star'?: number;
 }
 /**
  * 
@@ -70,13 +70,13 @@ export interface ProjectRequestBody {
      * @type {string}
      * @memberof ProjectRequestBody
      */
-    'name'?: string;
+    'description'?: string;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof ProjectRequestBody
      */
-    'star'?: number;
+    'name'?: string;
     /**
      * 
      * @type {Array<number>}
@@ -87,102 +87,22 @@ export interface ProjectRequestBody {
 /**
  * 
  * @export
- * @interface ResponseEntity
+ * @interface ProjectWithUsers
  */
-export interface ResponseEntity {
+export interface ProjectWithUsers {
     /**
      * 
-     * @type {object}
-     * @memberof ResponseEntity
+     * @type {Project}
+     * @memberof ProjectWithUsers
      */
-    'body'?: object;
+    'project'?: Project;
     /**
      * 
-     * @type {string}
-     * @memberof ResponseEntity
+     * @type {Array<UserModel>}
+     * @memberof ProjectWithUsers
      */
-    'statusCode'?: ResponseEntityStatusCodeEnum;
-    /**
-     * 
-     * @type {number}
-     * @memberof ResponseEntity
-     */
-    'statusCodeValue'?: number;
+    'users'?: Array<UserModel>;
 }
-
-export const ResponseEntityStatusCodeEnum = {
-    _100Continue: '100 CONTINUE',
-    _101SwitchingProtocols: '101 SWITCHING_PROTOCOLS',
-    _102Processing: '102 PROCESSING',
-    _103Checkpoint: '103 CHECKPOINT',
-    _200Ok: '200 OK',
-    _201Created: '201 CREATED',
-    _202Accepted: '202 ACCEPTED',
-    _203NonAuthoritativeInformation: '203 NON_AUTHORITATIVE_INFORMATION',
-    _204NoContent: '204 NO_CONTENT',
-    _205ResetContent: '205 RESET_CONTENT',
-    _206PartialContent: '206 PARTIAL_CONTENT',
-    _207MultiStatus: '207 MULTI_STATUS',
-    _208AlreadyReported: '208 ALREADY_REPORTED',
-    _226ImUsed: '226 IM_USED',
-    _300MultipleChoices: '300 MULTIPLE_CHOICES',
-    _301MovedPermanently: '301 MOVED_PERMANENTLY',
-    _302Found: '302 FOUND',
-    _302MovedTemporarily: '302 MOVED_TEMPORARILY',
-    _303SeeOther: '303 SEE_OTHER',
-    _304NotModified: '304 NOT_MODIFIED',
-    _305UseProxy: '305 USE_PROXY',
-    _307TemporaryRedirect: '307 TEMPORARY_REDIRECT',
-    _308PermanentRedirect: '308 PERMANENT_REDIRECT',
-    _400BadRequest: '400 BAD_REQUEST',
-    _401Unauthorized: '401 UNAUTHORIZED',
-    _402PaymentRequired: '402 PAYMENT_REQUIRED',
-    _403Forbidden: '403 FORBIDDEN',
-    _404NotFound: '404 NOT_FOUND',
-    _405MethodNotAllowed: '405 METHOD_NOT_ALLOWED',
-    _406NotAcceptable: '406 NOT_ACCEPTABLE',
-    _407ProxyAuthenticationRequired: '407 PROXY_AUTHENTICATION_REQUIRED',
-    _408RequestTimeout: '408 REQUEST_TIMEOUT',
-    _409Conflict: '409 CONFLICT',
-    _410Gone: '410 GONE',
-    _411LengthRequired: '411 LENGTH_REQUIRED',
-    _412PreconditionFailed: '412 PRECONDITION_FAILED',
-    _413PayloadTooLarge: '413 PAYLOAD_TOO_LARGE',
-    _413RequestEntityTooLarge: '413 REQUEST_ENTITY_TOO_LARGE',
-    _414UriTooLong: '414 URI_TOO_LONG',
-    _414RequestUriTooLong: '414 REQUEST_URI_TOO_LONG',
-    _415UnsupportedMediaType: '415 UNSUPPORTED_MEDIA_TYPE',
-    _416RequestedRangeNotSatisfiable: '416 REQUESTED_RANGE_NOT_SATISFIABLE',
-    _417ExpectationFailed: '417 EXPECTATION_FAILED',
-    _418IAmATeapot: '418 I_AM_A_TEAPOT',
-    _419InsufficientSpaceOnResource: '419 INSUFFICIENT_SPACE_ON_RESOURCE',
-    _420MethodFailure: '420 METHOD_FAILURE',
-    _421DestinationLocked: '421 DESTINATION_LOCKED',
-    _422UnprocessableEntity: '422 UNPROCESSABLE_ENTITY',
-    _423Locked: '423 LOCKED',
-    _424FailedDependency: '424 FAILED_DEPENDENCY',
-    _425TooEarly: '425 TOO_EARLY',
-    _426UpgradeRequired: '426 UPGRADE_REQUIRED',
-    _428PreconditionRequired: '428 PRECONDITION_REQUIRED',
-    _429TooManyRequests: '429 TOO_MANY_REQUESTS',
-    _431RequestHeaderFieldsTooLarge: '431 REQUEST_HEADER_FIELDS_TOO_LARGE',
-    _451UnavailableForLegalReasons: '451 UNAVAILABLE_FOR_LEGAL_REASONS',
-    _500InternalServerError: '500 INTERNAL_SERVER_ERROR',
-    _501NotImplemented: '501 NOT_IMPLEMENTED',
-    _502BadGateway: '502 BAD_GATEWAY',
-    _503ServiceUnavailable: '503 SERVICE_UNAVAILABLE',
-    _504GatewayTimeout: '504 GATEWAY_TIMEOUT',
-    _505HttpVersionNotSupported: '505 HTTP_VERSION_NOT_SUPPORTED',
-    _506VariantAlsoNegotiates: '506 VARIANT_ALSO_NEGOTIATES',
-    _507InsufficientStorage: '507 INSUFFICIENT_STORAGE',
-    _508LoopDetected: '508 LOOP_DETECTED',
-    _509BandwidthLimitExceeded: '509 BANDWIDTH_LIMIT_EXCEEDED',
-    _510NotExtended: '510 NOT_EXTENDED',
-    _511NetworkAuthenticationRequired: '511 NETWORK_AUTHENTICATION_REQUIRED'
-} as const;
-
-export type ResponseEntityStatusCodeEnum = typeof ResponseEntityStatusCodeEnum[keyof typeof ResponseEntityStatusCodeEnum];
-
 /**
  * 
  * @export
@@ -194,19 +114,25 @@ export interface UserInfoModel {
      * @type {string}
      * @memberof UserInfoModel
      */
-    'country'?: string;
+    'githubUrl'?: string;
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof UserInfoModel
      */
-    'githubName'?: string;
+    'id'?: number;
     /**
      * 
      * @type {string}
      * @memberof UserInfoModel
      */
     'mail'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserInfoModel
+     */
+    'name'?: string;
 }
 /**
  * 
@@ -235,22 +161,10 @@ export interface UserModel {
 export interface UserRequestBody {
     /**
      * 
-     * @type {number}
-     * @memberof UserRequestBody
-     */
-    'accountType'?: number;
-    /**
-     * 
      * @type {string}
      * @memberof UserRequestBody
      */
-    'country'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof UserRequestBody
-     */
-    'githubName'?: string;
+    'githubUrl'?: string;
     /**
      * 
      * @type {string}
@@ -402,16 +316,12 @@ export const ProjectControllerApiAxiosParamCreator = function (configuration?: C
         },
         /**
          * 
-         * @summary getAllProjectByUserId
-         * @param {number} userId userId
+         * @summary getAllProjectsInLoginUser
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAllProjectByUserIdUsingGET: async (userId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'userId' is not null or undefined
-            assertParamExists('getAllProjectByUserIdUsingGET', 'userId', userId)
-            const localVarPath = `/api/v1/project/{userId}`
-                .replace(`{${"userId"}}`, encodeURIComponent(String(userId)));
+        getAllProjectsInLoginUserUsingGET: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/v1/project`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -451,7 +361,7 @@ export const ProjectControllerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createProjectUsingPOST(requestBody: ProjectRequestBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseEntity>> {
+        async createProjectUsingPOST(requestBody: ProjectRequestBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createProjectUsingPOST(requestBody, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -462,7 +372,7 @@ export const ProjectControllerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteProjectUsingDELETE(projectId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseEntity>> {
+        async deleteProjectUsingDELETE(projectId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteProjectUsingDELETE(projectId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -474,19 +384,18 @@ export const ProjectControllerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async editProjectUsingPUT(projectId: number, requestBody: ProjectRequestBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseEntity>> {
+        async editProjectUsingPUT(projectId: number, requestBody: ProjectRequestBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.editProjectUsingPUT(projectId, requestBody, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
-         * @summary getAllProjectByUserId
-         * @param {number} userId userId
+         * @summary getAllProjectsInLoginUser
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAllProjectByUserIdUsingGET(userId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AllProjectResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllProjectByUserIdUsingGET(userId, options);
+        async getAllProjectsInLoginUserUsingGET(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AllProjectResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllProjectsInLoginUserUsingGET(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -506,7 +415,7 @@ export const ProjectControllerApiFactory = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createProjectUsingPOST(requestBody: ProjectRequestBody, options?: any): AxiosPromise<ResponseEntity> {
+        createProjectUsingPOST(requestBody: ProjectRequestBody, options?: any): AxiosPromise<void> {
             return localVarFp.createProjectUsingPOST(requestBody, options).then((request) => request(axios, basePath));
         },
         /**
@@ -516,7 +425,7 @@ export const ProjectControllerApiFactory = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteProjectUsingDELETE(projectId: number, options?: any): AxiosPromise<ResponseEntity> {
+        deleteProjectUsingDELETE(projectId: number, options?: any): AxiosPromise<void> {
             return localVarFp.deleteProjectUsingDELETE(projectId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -527,18 +436,17 @@ export const ProjectControllerApiFactory = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        editProjectUsingPUT(projectId: number, requestBody: ProjectRequestBody, options?: any): AxiosPromise<ResponseEntity> {
+        editProjectUsingPUT(projectId: number, requestBody: ProjectRequestBody, options?: any): AxiosPromise<void> {
             return localVarFp.editProjectUsingPUT(projectId, requestBody, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @summary getAllProjectByUserId
-         * @param {number} userId userId
+         * @summary getAllProjectsInLoginUser
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAllProjectByUserIdUsingGET(userId: number, options?: any): AxiosPromise<AllProjectResponse> {
-            return localVarFp.getAllProjectByUserIdUsingGET(userId, options).then((request) => request(axios, basePath));
+        getAllProjectsInLoginUserUsingGET(options?: any): AxiosPromise<AllProjectResponse> {
+            return localVarFp.getAllProjectsInLoginUserUsingGET(options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -589,112 +497,13 @@ export class ProjectControllerApi extends BaseAPI {
 
     /**
      * 
-     * @summary getAllProjectByUserId
-     * @param {number} userId userId
+     * @summary getAllProjectsInLoginUser
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ProjectControllerApi
      */
-    public getAllProjectByUserIdUsingGET(userId: number, options?: AxiosRequestConfig) {
-        return ProjectControllerApiFp(this.configuration).getAllProjectByUserIdUsingGET(userId, options).then((request) => request(this.axios, this.basePath));
-    }
-}
-
-
-/**
- * SampleControllerApi - axios parameter creator
- * @export
- */
-export const SampleControllerApiAxiosParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         * 
-         * @summary index
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        indexUsingGET: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/v1/sample`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-    }
-};
-
-/**
- * SampleControllerApi - functional programming interface
- * @export
- */
-export const SampleControllerApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = SampleControllerApiAxiosParamCreator(configuration)
-    return {
-        /**
-         * 
-         * @summary index
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async indexUsingGET(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.indexUsingGET(options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-    }
-};
-
-/**
- * SampleControllerApi - factory interface
- * @export
- */
-export const SampleControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = SampleControllerApiFp(configuration)
-    return {
-        /**
-         * 
-         * @summary index
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        indexUsingGET(options?: any): AxiosPromise<string> {
-            return localVarFp.indexUsingGET(options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
- * SampleControllerApi - object-oriented interface
- * @export
- * @class SampleControllerApi
- * @extends {BaseAPI}
- */
-export class SampleControllerApi extends BaseAPI {
-    /**
-     * 
-     * @summary index
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof SampleControllerApi
-     */
-    public indexUsingGET(options?: AxiosRequestConfig) {
-        return SampleControllerApiFp(this.configuration).indexUsingGET(options).then((request) => request(this.axios, this.basePath));
+    public getAllProjectsInLoginUserUsingGET(options?: AxiosRequestConfig) {
+        return ProjectControllerApiFp(this.configuration).getAllProjectsInLoginUserUsingGET(options).then((request) => request(this.axios, this.basePath));
     }
 }
 

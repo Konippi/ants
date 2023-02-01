@@ -29,7 +29,7 @@ public class UserService {
     public UserInfoModel getUserInfoByUserId(final int userId) {
         final var entity = userRepository.selectUserInfoByUserId(userId).orElseThrow(
             () -> new ApiException(ErrorCode.INVALID_QUERY_PARAMETER, DetailErrorMessage.INVALID_QUERY_PARAMETER.getMessage()));
-        return UserInfoModel.builder().name(entity.getName()).mail(entity.getMail()).githubUrl(entity.getGithubUrl()).build();
+        return UserInfoModel.builder().id(entity.getId()).name(entity.getName()).mail(entity.getMail()).githubUrl(entity.getGithubUrl()).build();
     }
 
     public User createUser(final String name, final String password, final String mail, final String githubUrl) {

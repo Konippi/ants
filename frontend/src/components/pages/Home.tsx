@@ -2,8 +2,7 @@ import React, { FC } from "react";
 import { useSelector } from "react-redux";
 import { StoreType } from "../../redux/store";
 import { getColor } from "../../redux/utils/color";
-import { BaseModal } from "../molecules";
-import { Profile, HomeProject, SampleModalContent } from "../organisms";
+import { Profile, HomeProject } from "../organisms";
 
 const Home: FC = () => {
     const selector = useSelector((state: StoreType) => state);

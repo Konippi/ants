@@ -6,7 +6,7 @@ import { ColorType, getColor } from "../../redux/utils/color";
 type Props = {
     title: string;
     name: string;
-    value: string;
+    value?: string;
     placeholder: string;
     onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }

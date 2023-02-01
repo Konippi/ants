@@ -1,21 +1,14 @@
-import { ProjectInputType } from "./types";
+import { ProjectRequestBody } from "../../../client";
 
 export interface ActionType {
     type: string;
-    payload: ProjectInputType;
+    payload: ProjectRequestBody;
 }
 
 export const SET_PROJECT_INPUT = "SET_PROJECT_INPUT";
-export const setProjectInputAction = (payload: ProjectInputType) => {
+export const setProjectInputAction = (payload: ProjectRequestBody) => {
     return {
         type: SET_PROJECT_INPUT,
         payload: payload
-    };
-};
-
-export const CLEAN_PROJECT_INPUT = "CLEAN_PROJECT_INPUT";
-export const cleanProjectInputAction = () => {
-    return {
-        type: CLEAN_PROJECT_INPUT
     };
 };

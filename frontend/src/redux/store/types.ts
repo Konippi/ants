@@ -1,16 +1,21 @@
-import { AllProjectResponse, UserInfoModel } from "../../client";
+import {
+    AllProjectResponse,
+    ProjectRequestBody,
+    UserInfoModel,
+    UserResponse
+} from "../../client";
 import { ProjectApiStatusType } from "../project/projectApiStatus";
-import { ProjectInputType } from "../project/projectInput";
 import { ColorType } from "../utils/color";
 
 export interface StoreType {
 
     // ProjectPage
     projectApiStatus: ProjectApiStatusType;
-    projectInput: ProjectInputType;
+    projectInput: ProjectRequestBody;
 
     // utils
     userInfo: UserInfoModel;
-    allProjects: AllProjectResponse;
+    allProjectsInLoginUser: AllProjectResponse;
+    allUsers: UserResponse;
     color: ColorType;
 } 
