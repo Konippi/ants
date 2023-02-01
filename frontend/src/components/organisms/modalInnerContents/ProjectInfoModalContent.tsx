@@ -20,7 +20,7 @@ const ProjectInfoModalContent: FC<Props> = memo(function projectInfoModalContent
             </div>
             <div className="mb-6">
                 <h2 className="mb-2">Users</h2>
-                <div className="flex flex-wrap gap-x-px">
+                <div className="flex flex-wrap gap-1">
                     {project?.users?.map(user => <BaseTag key={user.userId} text={user.name as string}/>)}
                 </div>
             </div>
