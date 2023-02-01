@@ -5,9 +5,9 @@ export const initialState: AllProjectResponse = {
     projects: undefined
 };
 
-export const AllProjectsReducer = (state: AllProjectResponse = initialState, action) => {
+export const AllProjectsInLoginUserReducer = (state: AllProjectResponse = initialState, action) => {
     switch(action.type) {
-    case Actions.FETCH_ALL_PROJECTS:
+    case Actions.FETCH_ALL_PROJECTS_IN_LOGIN_USER:
         return {
             ...action.payload
         };

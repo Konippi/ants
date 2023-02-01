@@ -1,7 +1,8 @@
 import React, { FC,  memo,  ReactNode, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreType } from "../../redux/store";
-import { fetchAllProjectByUserId } from "../../redux/utils/allProjects";
+import { fetchAllProjectsInLoginUser } from "../../redux/utils/allProjectsInLoginUser";
+import { fetchAllUsers } from "../../redux/utils/allUsers";
 import { getColor } from "../../redux/utils/color";
 import { fetchUserInfoByUserId } from "../../redux/utils/userInfo";
 import { Header } from "../organisms";
@@ -21,7 +22,8 @@ const Layout: FC<Props> = memo(function Layout({children}: Props) {
     // アプリ起動時にfetchが必要なReduxのstore
     useEffect(() => {
         dispatch(fetchUserInfoByUserId(userId));
-        dispatch(fetchAllProjectByUserId(userId));
+        dispatch(fetchAllProjectsInLoginUser());
+        dispatch(fetchAllUsers());
     }, []);
 
     return (

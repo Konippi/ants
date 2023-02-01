@@ -4,22 +4,39 @@
     <sql id="projectColumn">
         project.id AS project_id,
         project.name AS project_name,
-        project.star AS project_star
+        project.description AS project_description
     </sql>
 
-    <resultMap id="ProjectBaseResultMap" type="com.example.ants.db.entity.Project"
-               extends="com.example.ants.db.mapper.base.ProjectBaseMapper.BaseResultMap"/>
+    <resultMap id="ProjectWithUsersEntityMap" type="com.example.ants.model.entity.ProjectWithUsersEntity">
+        <id column="project_id"/>
+        <association property="project" autoMapping="true" columnPrefix="project_"
+                     javaType="com.example.ants.db.entity.Project"/>
+        <collection property="users" ofType="com.example.ants.db.entity.User"
+                    autoMapping="true" columnPrefix="user_">
+        </collection>
+    </resultMap>
 
-    <select id="selectAllProjectByUserId" resultMap="ProjectBaseResultMap">
+    <select id="selectAllProjectWithUsersByUserId" resultMap="ProjectWithUsersEntityMap">
         SELECT
-        <include refid="com.example.ants.db.mapper.base.ProjectBaseMapper.Base_Column_List"/>
-        FROM project
+            <include refid="projectColumn"/>,
+            <include refid="com.example.ants.db.mapper.UserMapper.userColumn"/>
+        FROM
+            (SELECT
+                *
+            FROM project
+            LEFT JOIN
+                r_user_project
+                    ON project.id = r_user_project.project_id
+                <where>
+                    r_user_project.user_id = #{userId}
+                </where>
+            ) project
         LEFT JOIN
             r_user_project
                 ON project.id = r_user_project.project_id
-        <where>
-            r_user_project.user_id = #{userId}
-        </where>
+        LEFT JOIN
+            user
+                ON user.id = r_user_project.user_id
     </select>
 
 </mapper>

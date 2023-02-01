@@ -1,22 +1,22 @@
 import React, {FC} from "react";
 import { ImageIcon } from "../atoms";
-import { Link } from "react-router-dom";
 import { Project } from "../../client";
 
 type Props = {
-    item: Project;
+    project: Project;
+    handleClick: () => void;
 }
 
 const ProjectSquareListItem: FC<Props> = (props: Props) => {
-    const {item} = props;
+    const {project, handleClick} = props;
 
     return (
-        <Link to={`/project/${item.id}`} className="mb-4 mr-4">
+        <div onClick={handleClick} className="mb-4 mr-4 cursor-pointer">
             <div className="hover:opacity-90 items-center flex flex-col w-28">
-                <ImageIcon size="90px" image="sample" borderRadius="15px"/>
-                <h2 className="mt-2">{item.name}</h2>
+                <ImageIcon size="90px" borderRadius="15px"/>
+                <h2 className="mt-2">{project.name}</h2>
             </div>
-        </Link>
+        </div>
     );
 };
 

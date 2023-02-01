@@ -1,8 +1,6 @@
 import { Dispatch } from "redux";
-import { ProjectRequestBody } from "../../../client";
 import { projectApi } from "../../../client/clientWrapper";
 import { StoreType } from "../../store";
-import { fetchAllProjectByUserId } from "../../utils/allProjects";
 import { setProjectApiStatusErrorAction } from "./actions";
 
 export const setProjectApiStatusError = (isError: boolean) => {
@@ -11,18 +9,42 @@ export const setProjectApiStatusError = (isError: boolean) => {
     };
 };
 
-export const createNewProject = () => {
+export const createNewProjectAPI = () => {
     return (dispatch: Dispatch<any>, getState: () => StoreType) => {
         const inputState = getState().projectInput;
-        const requestBody: ProjectRequestBody = {
-            name: inputState.name,
-            userIdList: [parseInt(inputState.userId)]
-        }
-        projectApi.createProjectUsingPOST(requestBody)
+        projectApi.createProjectUsingPOST(inputState)
             .then(() => {
-                dispatch(fetchAllProjectByUserId(1));
+                location.reload();
             })
             .catch(() => {
+                alert("処理が正常に行われませんでした");
+                dispatch(setProjectApiStatusError(true));
+            });
+    };
+};
+
+export const editProjectAPI = (projectId: number) => {
+    return (dispatch: Dispatch<any>, getState: () => StoreType) => {
+        const inputState = getState().projectInput;
+        projectApi.editProjectUsingPUT(projectId, inputState)
+            .then(() => {
+                location.reload();
+            })
+            .catch(() => {
+                alert("処理が正常に行われませんでした");
+                dispatch(setProjectApiStatusError(true));
+            });
+    };
+};
+
+export const deleteProjectAPI = (projectId: number) => {
+    return (dispatch: Dispatch<any>) => {
+        projectApi.deleteProjectUsingDELETE(projectId)
+            .then(() => {
+                location.reload();
+            })
+            .catch(() => {
+                alert("処理が正常に行われませんでした");
                 dispatch(setProjectApiStatusError(true));
             });
     };

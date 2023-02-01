@@ -6,3 +6,5 @@ export {default as BaseModalInput} from "./BaseModalInput";
 export {default as BaseInput} from "./BaseInput";
 export {default as BaseTextButton} from "./BaseTextButton";
 export {default as BaseIconButton} from "./BaseIconButton";
+export {default as BaseTag} from "./BaseTag";
+export {default as BaseMultiInput} from "./BaseMultiInput";

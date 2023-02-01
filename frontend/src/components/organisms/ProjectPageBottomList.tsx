@@ -1,14 +1,15 @@
 import React, {ChangeEvent, FC, memo, useEffect, useState} from "react";
 import { ProjectList } from ".";
 import { BaseInput } from "../atoms";
-import { Project } from "../../client";
+import { ProjectWithUsers } from "../../client";
 
 type Props = {
-    projects?: Array<Project>;
+    projects?: Array<ProjectWithUsers>;
+    handleOpenInfoModal: (project: ProjectWithUsers) => void;
 }
 
 const ProjectPageBottomList: FC<Props> = memo(function projectPageBottomList(props: Props) {
-    const {projects} = props;
+    const {projects, handleOpenInfoModal} = props;
 
     const [selectedProjects, setSelectedProject] = useState(projects);
     const [searchWord, setSearchWord] = useState("");
@@ -22,9 +23,9 @@ const ProjectPageBottomList: FC<Props> = memo(function projectPageBottomList(pro
     useEffect(() => {
         const extractedProjects = projects?.filter(project =>
             // 小文字にして判定 PRoject=project
-            project.name?.toLowerCase().includes(searchWord.toLowerCase())
+            project?.project?.name?.toLowerCase().includes(searchWord.toLowerCase())
         );
-        setSelectedProject(extractedProjects)
+        setSelectedProject(extractedProjects);
     }, [projects, searchWord]);
     
     return (
@@ -36,7 +37,10 @@ const ProjectPageBottomList: FC<Props> = memo(function projectPageBottomList(pro
                     onChange={handleChangeSearchWord}
                 />
             </div>
-            <ProjectList items={selectedProjects} />
+            <ProjectList
+                projects={selectedProjects}
+                handleOpenInfoModal={handleOpenInfoModal}
+            />
         </div>
     );
 });

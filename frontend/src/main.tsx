@@ -2,7 +2,7 @@ import React, { Provider } from "react-redux";
 import ReactDOM from "react-dom";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import { Layout } from "./components/layouts";
-import {Chat, Home, Login, Project, Task, Wiki} from "./components/pages";
+import {Chat, Home, Login, Project, Task} from "./components/pages";
 import "./css/index.css";
 import "./styles/Ants.scss";
 import store from "./redux/store/store";
@@ -30,13 +30,6 @@ ReactDOM.render(
                     element={
                         <Layout>
                             <Project/>
-                        </Layout>
-                    }
-                />
-                <Route path="/project/:projectId"
-                    element={
-                        <Layout>
-                            <Wiki/>
                         </Layout>
                     }
                 />

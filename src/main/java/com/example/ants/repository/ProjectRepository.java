@@ -3,6 +3,7 @@ package com.example.ants.repository;
 import com.example.ants.db.entity.Project;
 import com.example.ants.db.entity.User;
 import com.example.ants.db.mapper.ProjectMapper;
+import com.example.ants.model.entity.ProjectWithUsersEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -14,8 +15,8 @@ import java.util.List;
 public class ProjectRepository {
     private final ProjectMapper projectMapper;
 
-    public List<Project> selectAllProjectByUserId(int userId) {
-        return projectMapper.selectAllProjectByUserId(userId);
+    public List<ProjectWithUsersEntity> selectAllProjectWithUsersByUserId(int userId) {
+        return projectMapper.selectAllProjectWithUsersByUserId(userId);
     }
 
     public int createProject(final Project record) {
