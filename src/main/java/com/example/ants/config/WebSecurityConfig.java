@@ -19,6 +19,10 @@ import java.util.List;
 public class WebSecurityConfig {
     @Value("${spring.profiles.active:}")
     private String profile;
+
+    @Value("${ants.security.csrf}")
+    private boolean isEnabledCsrf;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 //        http.authorizeRequests()
@@ -33,6 +37,8 @@ public class WebSecurityConfig {
         if (profile.equals("local")) {
             // Cors設定を適応
             http.cors().configurationSource(this.corsConfigurationSource());
+        }
+        if (!isEnabledCsrf) {
             // csrfを無効化
             http.csrf().disable();
         }
