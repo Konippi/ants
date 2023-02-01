@@ -3,6 +3,8 @@ export {default as Profile} from "./Profile";
 export {default as ProjectList} from "./ProjectList";
 export {default as ProjectSquareList} from "./ProjectSquareList";
 export {default as HomeProject} from "./HomeProject";
+export {default as SignUpForm} from "./SignUpForm";
+export {default as LoginForm} from "./LoginForm";
 export {default as ProjectPageBottomList} from "./ProjectPageBottomList";
 export {default as ProjectInputModalContent} from "./modalInnerContents/ProjectInputModalContent";
 export {default as ProjectInfoModalContent} from "./modalInnerContents/ProjectInfoModalContent";
