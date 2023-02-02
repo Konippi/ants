@@ -6,6 +6,6 @@ import java.util.List;
 
 @Getter
 @Builder
-public class UserResponse {
+public class UsersResponse {
     private List<UserModel> users;
 }
