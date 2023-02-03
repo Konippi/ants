@@ -19,6 +19,13 @@ public class UserRepository {
         return userMapper.selectByExample(null);
     }
 
+    public Optional<User> selectUserInfoByUserName(final String name) {
+        final var example = new UserExample();
+        example.createCriteria().andNameEqualTo(name);
+        final var results = userMapper.selectByExample(example);
+        return results.stream().findFirst();
+    }
+
     public Optional<User> selectUserInfoByUserId(final int userId) {
         final var example = new UserExample();
         example.createCriteria().andIdEqualTo(userId);

@@ -2,6 +2,7 @@ import React, {FC, memo, useState} from "react";
 import { BsPersonCircle } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { userApi } from "../../../client/clientWrapper";
 import { StoreType } from "../../../redux/store";
 import { changeColor, ColorType, getColor, returnColor } from "../../../redux/utils/color";
 import { BaseIconButton } from "../../atoms";
@@ -13,9 +14,11 @@ const Header: FC = memo(function Header() {
 
     const [isChange, setIsChange] = useState(true);
 
-    const handleColor = () => {
-        dispatch(isChange ? changeColor() : returnColor());
-        setIsChange(!isChange);
+    const handleLogout = () => {
+        userApi.logoutUsingPOST()
+            .then(() => {
+                location.href = "/login";
+            });
     };
     
     return (
@@ -33,7 +36,7 @@ const Header: FC = memo(function Header() {
                     <BaseIconButton
                         icon={<BsPersonCircle size={40} color={color.mainColor.color} className="opacity-60"/>}
                         size="auto"
-                        handleClick={handleColor}
+                        handleClick={handleLogout}
                     />
                 </div>
             </div>

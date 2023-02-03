@@ -1,5 +1,7 @@
 package com.example.ants.controller.api;
 
+import com.example.ants.auth.model.AuthUser;
+import com.example.ants.db.entity.User;
 import com.example.ants.enums.error.DetailErrorMessage;
 import com.example.ants.enums.error.ErrorCode;
 import com.example.ants.exception.ApiException;
@@ -8,9 +10,9 @@ import com.example.ants.model.response.user.UserInfoModel;
 import com.example.ants.model.response.user.UsersResponse;
 import com.example.ants.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +26,12 @@ public class UserController {
     @GetMapping()
     public ResponseEntity<UsersResponse> getAllUsers() {
         return new ResponseEntity<>(userService.getAllUsersList(), HttpStatus.OK);
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<User> getMe(@AuthenticationPrincipal AuthUser authUser) {
+
+        return new ResponseEntity<>(authUser.getAuthUser(), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}")
@@ -44,6 +52,19 @@ public class UserController {
         final String githubUrl = requestBody.getGithubUrl();
 
         userService.createUser(name, password, mail, githubUrl);
+    }
+
+
+    // エンドポイントのみ定義 (処理はSpring Securityで行われる)
+    @PostMapping("/logout")
+    @ResponseStatus(HttpStatus.OK)
+    public void logout() throws ApiException {
+    }
+
+    // エンドポイントのみ定義 (処理はSpring Securityで行われる)
+    @PostMapping("/login?name={name}&password={password}")
+    @ResponseStatus(HttpStatus.OK)
+    public void login(@PathVariable("name") final String name, @PathVariable("password") final String password) throws ApiException {
     }
 
     @PutMapping("/{userId}")
