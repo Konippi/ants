@@ -9,11 +9,6 @@ type Props = {
 }
 
 const LoginForm: FC<Props> = memo(function loginForm(props: Props) {
-    const [a, setA] = useState(false);
-
-    const [button, setButton] = useState<HTMLElement | null>();
-    const navigate = useNavigate();
-    console.log(button);
     
     const submit = () => {
         userApi.loginUsingPOST("choshi daiki", "pass")
@@ -26,10 +21,6 @@ const LoginForm: FC<Props> = memo(function loginForm(props: Props) {
                 
             });
     };
-    useEffect(() => {
-        console.log("sssa");
-        setButton(document.getElementById("form"));
-    },[]);
     return (
         <div className="flex flex-col items-center">
             <h2>Login</h2>
@@ -47,11 +38,6 @@ const LoginForm: FC<Props> = memo(function loginForm(props: Props) {
                 text="Login"
                 handleClick={submit}
             />
-            <form id="form" action="http://localhost:8080/api/v1/user/login" method="post">
-                <input type="text" name="username" placeholder="Username"/>
-                <input type="password" name="password" placeholder="Password"/>
-                <button  id="submit" type="submit" value="Log in" />
-            </form>
         </div>
     );
 });
