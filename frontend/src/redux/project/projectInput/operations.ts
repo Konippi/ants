@@ -39,7 +39,7 @@ export const changeProjectSelect = (event: MultiValue<MultiSelectType>) => {
 
 export const cleanProjectInput = () => {
     return (dispatch: Dispatch, getState: () => StoreType) => {
-        const loginUserId = getState().userInfo.id as number;
+        const loginUserId = getState().loginUserInfo.id as number;
         dispatch(setProjectInputAction({
             ...initialState,
             userIdList: [loginUserId]

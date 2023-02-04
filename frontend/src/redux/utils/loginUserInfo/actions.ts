@@ -5,10 +5,10 @@ export interface ActionType {
     payload: UserInfoModel;
 }
 
-export const FETCH_USER_INFO = "FETCH_USER_INFO";
-export const fetchUserInfoAction = (payload: UserInfoModel) => {
+export const FETCH_LOGIN_USER_INFO = "FETCH_LOGIN_USER_INFO";
+export const fetchLoginUserInfoAction = (payload: UserInfoModel) => {
     return {
-        type: FETCH_USER_INFO,
+        type: FETCH_LOGIN_USER_INFO,
         payload: payload
     };
 };
