@@ -1,18 +1,15 @@
-import React, {FC, memo, useState} from "react";
+import React, {FC, memo} from "react";
 import { BsPersonCircle } from "react-icons/bs";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { userApi } from "../../../client/clientWrapper";
 import { StoreType } from "../../../redux/store";
-import { changeColor, ColorType, getColor, returnColor } from "../../../redux/utils/color";
+import { ColorType, getColor } from "../../../redux/utils/color";
 import { BaseIconButton } from "../../atoms";
 
 const Header: FC = memo(function Header() {
-    const dispatch = useDispatch();
     const selector = useSelector((state: StoreType) => state);
     const color: ColorType = getColor(selector);
-
-    const [isChange, setIsChange] = useState(true);
 
     const handleLogout = () => {
         userApi.logoutUsingPOST()

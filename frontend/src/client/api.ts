@@ -74,6 +74,62 @@ export interface CreateTaskRequestBody {
 /**
  * 
  * @export
+ * @interface CreateUserRequestBody
+ */
+export interface CreateUserRequestBody {
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateUserRequestBody
+     */
+    'githubUrl'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateUserRequestBody
+     */
+    'mail'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateUserRequestBody
+     */
+    'name'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateUserRequestBody
+     */
+    'password'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface EditUserRequestBody
+ */
+export interface EditUserRequestBody {
+    /**
+     * 
+     * @type {string}
+     * @memberof EditUserRequestBody
+     */
+    'githubUrl'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EditUserRequestBody
+     */
+    'mail'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EditUserRequestBody
+     */
+    'name'?: string;
+}
+/**
+ * 
+ * @export
  * @interface Project
  */
 export interface Project {
@@ -193,43 +249,6 @@ export interface TasksResponse {
 /**
  * 
  * @export
- * @interface User
- */
-export interface User {
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    'githubUrl'?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof User
-     */
-    'id'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    'mail'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    'name'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    'password'?: string;
-}
-/**
- * 
- * @export
  * @interface UserInfoModel
  */
 export interface UserInfoModel {
@@ -276,37 +295,6 @@ export interface UserModel {
      * @memberof UserModel
      */
     'userId'?: number;
-}
-/**
- * 
- * @export
- * @interface UserRequestBody
- */
-export interface UserRequestBody {
-    /**
-     * 
-     * @type {string}
-     * @memberof UserRequestBody
-     */
-    'githubUrl'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof UserRequestBody
-     */
-    'mail'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof UserRequestBody
-     */
-    'name'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof UserRequestBody
-     */
-    'password'?: string;
 }
 /**
  * 
@@ -441,10 +429,22 @@ export const ProjectControllerApiAxiosParamCreator = function (configuration?: C
         /**
          * 
          * @summary getAllProjectsInLoginUser
+         * @param {boolean} [accountNonExpired] 
+         * @param {boolean} [accountNonLocked] 
+         * @param {string} [authUserGithubUrl] 
+         * @param {number} [authUserId] 
+         * @param {string} [authUserMail] 
+         * @param {string} [authUserName] 
+         * @param {string} [authUserPassword] 
+         * @param {string} [authorities0Authority] 
+         * @param {boolean} [credentialsNonExpired] 
+         * @param {boolean} [enabled] 
+         * @param {string} [password] 
+         * @param {string} [username] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAllProjectsInLoginUserUsingGET: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getAllProjectsInLoginUserUsingGET: async (accountNonExpired?: boolean, accountNonLocked?: boolean, authUserGithubUrl?: string, authUserId?: number, authUserMail?: string, authUserName?: string, authUserPassword?: string, authorities0Authority?: string, credentialsNonExpired?: boolean, enabled?: boolean, password?: string, username?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/project`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -456,6 +456,54 @@ export const ProjectControllerApiAxiosParamCreator = function (configuration?: C
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (accountNonExpired !== undefined) {
+                localVarQueryParameter['accountNonExpired'] = accountNonExpired;
+            }
+
+            if (accountNonLocked !== undefined) {
+                localVarQueryParameter['accountNonLocked'] = accountNonLocked;
+            }
+
+            if (authUserGithubUrl !== undefined) {
+                localVarQueryParameter['authUser.githubUrl'] = authUserGithubUrl;
+            }
+
+            if (authUserId !== undefined) {
+                localVarQueryParameter['authUser.id'] = authUserId;
+            }
+
+            if (authUserMail !== undefined) {
+                localVarQueryParameter['authUser.mail'] = authUserMail;
+            }
+
+            if (authUserName !== undefined) {
+                localVarQueryParameter['authUser.name'] = authUserName;
+            }
+
+            if (authUserPassword !== undefined) {
+                localVarQueryParameter['authUser.password'] = authUserPassword;
+            }
+
+            if (authorities0Authority !== undefined) {
+                localVarQueryParameter['authorities[0].authority'] = authorities0Authority;
+            }
+
+            if (credentialsNonExpired !== undefined) {
+                localVarQueryParameter['credentialsNonExpired'] = credentialsNonExpired;
+            }
+
+            if (enabled !== undefined) {
+                localVarQueryParameter['enabled'] = enabled;
+            }
+
+            if (password !== undefined) {
+                localVarQueryParameter['password'] = password;
+            }
+
+            if (username !== undefined) {
+                localVarQueryParameter['username'] = username;
+            }
 
 
     
@@ -515,11 +563,23 @@ export const ProjectControllerApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary getAllProjectsInLoginUser
+         * @param {boolean} [accountNonExpired] 
+         * @param {boolean} [accountNonLocked] 
+         * @param {string} [authUserGithubUrl] 
+         * @param {number} [authUserId] 
+         * @param {string} [authUserMail] 
+         * @param {string} [authUserName] 
+         * @param {string} [authUserPassword] 
+         * @param {string} [authorities0Authority] 
+         * @param {boolean} [credentialsNonExpired] 
+         * @param {boolean} [enabled] 
+         * @param {string} [password] 
+         * @param {string} [username] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAllProjectsInLoginUserUsingGET(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AllProjectResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllProjectsInLoginUserUsingGET(options);
+        async getAllProjectsInLoginUserUsingGET(accountNonExpired?: boolean, accountNonLocked?: boolean, authUserGithubUrl?: string, authUserId?: number, authUserMail?: string, authUserName?: string, authUserPassword?: string, authorities0Authority?: string, credentialsNonExpired?: boolean, enabled?: boolean, password?: string, username?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AllProjectResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllProjectsInLoginUserUsingGET(accountNonExpired, accountNonLocked, authUserGithubUrl, authUserId, authUserMail, authUserName, authUserPassword, authorities0Authority, credentialsNonExpired, enabled, password, username, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -566,11 +626,23 @@ export const ProjectControllerApiFactory = function (configuration?: Configurati
         /**
          * 
          * @summary getAllProjectsInLoginUser
+         * @param {boolean} [accountNonExpired] 
+         * @param {boolean} [accountNonLocked] 
+         * @param {string} [authUserGithubUrl] 
+         * @param {number} [authUserId] 
+         * @param {string} [authUserMail] 
+         * @param {string} [authUserName] 
+         * @param {string} [authUserPassword] 
+         * @param {string} [authorities0Authority] 
+         * @param {boolean} [credentialsNonExpired] 
+         * @param {boolean} [enabled] 
+         * @param {string} [password] 
+         * @param {string} [username] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAllProjectsInLoginUserUsingGET(options?: any): AxiosPromise<AllProjectResponse> {
-            return localVarFp.getAllProjectsInLoginUserUsingGET(options).then((request) => request(axios, basePath));
+        getAllProjectsInLoginUserUsingGET(accountNonExpired?: boolean, accountNonLocked?: boolean, authUserGithubUrl?: string, authUserId?: number, authUserMail?: string, authUserName?: string, authUserPassword?: string, authorities0Authority?: string, credentialsNonExpired?: boolean, enabled?: boolean, password?: string, username?: string, options?: any): AxiosPromise<AllProjectResponse> {
+            return localVarFp.getAllProjectsInLoginUserUsingGET(accountNonExpired, accountNonLocked, authUserGithubUrl, authUserId, authUserMail, authUserName, authUserPassword, authorities0Authority, credentialsNonExpired, enabled, password, username, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -622,12 +694,24 @@ export class ProjectControllerApi extends BaseAPI {
     /**
      * 
      * @summary getAllProjectsInLoginUser
+     * @param {boolean} [accountNonExpired] 
+     * @param {boolean} [accountNonLocked] 
+     * @param {string} [authUserGithubUrl] 
+     * @param {number} [authUserId] 
+     * @param {string} [authUserMail] 
+     * @param {string} [authUserName] 
+     * @param {string} [authUserPassword] 
+     * @param {string} [authorities0Authority] 
+     * @param {boolean} [credentialsNonExpired] 
+     * @param {boolean} [enabled] 
+     * @param {string} [password] 
+     * @param {string} [username] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ProjectControllerApi
      */
-    public getAllProjectsInLoginUserUsingGET(options?: AxiosRequestConfig) {
-        return ProjectControllerApiFp(this.configuration).getAllProjectsInLoginUserUsingGET(options).then((request) => request(this.axios, this.basePath));
+    public getAllProjectsInLoginUserUsingGET(accountNonExpired?: boolean, accountNonLocked?: boolean, authUserGithubUrl?: string, authUserId?: number, authUserMail?: string, authUserName?: string, authUserPassword?: string, authorities0Authority?: string, credentialsNonExpired?: boolean, enabled?: boolean, password?: string, username?: string, options?: AxiosRequestConfig) {
+        return ProjectControllerApiFp(this.configuration).getAllProjectsInLoginUserUsingGET(accountNonExpired, accountNonLocked, authUserGithubUrl, authUserId, authUserMail, authUserName, authUserPassword, authorities0Authority, credentialsNonExpired, enabled, password, username, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -950,42 +1034,6 @@ export const UserControllerApiAxiosParamCreator = function (configuration?: Conf
     return {
         /**
          * 
-         * @summary createUser
-         * @param {UserRequestBody} requestBody requestBody
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createUserUsingPOST: async (requestBody: UserRequestBody, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'requestBody' is not null or undefined
-            assertParamExists('createUserUsingPOST', 'requestBody', requestBody)
-            const localVarPath = `/api/v1/user/signup`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(requestBody, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @summary deleteUser
          * @param {number} userId userId
          * @param {*} [options] Override http request option.
@@ -1022,11 +1070,11 @@ export const UserControllerApiAxiosParamCreator = function (configuration?: Conf
          * 
          * @summary editUser
          * @param {number} userId userId
-         * @param {UserRequestBody} requestBody requestBody
+         * @param {EditUserRequestBody} requestBody requestBody
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        editUserUsingPUT: async (userId: number, requestBody: UserRequestBody, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        editUserUsingPUT: async (userId: number, requestBody: EditUserRequestBody, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'userId' is not null or undefined
             assertParamExists('editUserUsingPUT', 'userId', userId)
             // verify required parameter 'requestBody' is not null or undefined
@@ -1090,7 +1138,7 @@ export const UserControllerApiAxiosParamCreator = function (configuration?: Conf
         },
         /**
          * 
-         * @summary getMe
+         * @summary getLoginUser
          * @param {boolean} [accountNonExpired] 
          * @param {boolean} [accountNonLocked] 
          * @param {string} [authUserGithubUrl] 
@@ -1106,7 +1154,7 @@ export const UserControllerApiAxiosParamCreator = function (configuration?: Conf
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getMeUsingGET: async (accountNonExpired?: boolean, accountNonLocked?: boolean, authUserGithubUrl?: string, authUserId?: number, authUserMail?: string, authUserName?: string, authUserPassword?: string, authorities0Authority?: string, credentialsNonExpired?: boolean, enabled?: boolean, password?: string, username?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getLoginUserUsingGET: async (accountNonExpired?: boolean, accountNonLocked?: boolean, authUserGithubUrl?: string, authUserId?: number, authUserMail?: string, authUserName?: string, authUserPassword?: string, authorities0Authority?: string, credentialsNonExpired?: boolean, enabled?: boolean, password?: string, username?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/user/me`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1280,6 +1328,42 @@ export const UserControllerApiAxiosParamCreator = function (configuration?: Conf
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @summary signup
+         * @param {CreateUserRequestBody} requestBody requestBody
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        signupUsingPOST: async (requestBody: CreateUserRequestBody, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'requestBody' is not null or undefined
+            assertParamExists('signupUsingPOST', 'requestBody', requestBody)
+            const localVarPath = `/api/v1/user/signup`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(requestBody, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -1290,17 +1374,6 @@ export const UserControllerApiAxiosParamCreator = function (configuration?: Conf
 export const UserControllerApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = UserControllerApiAxiosParamCreator(configuration)
     return {
-        /**
-         * 
-         * @summary createUser
-         * @param {UserRequestBody} requestBody requestBody
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async createUserUsingPOST(requestBody: UserRequestBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createUserUsingPOST(requestBody, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
         /**
          * 
          * @summary deleteUser
@@ -1316,11 +1389,11 @@ export const UserControllerApiFp = function(configuration?: Configuration) {
          * 
          * @summary editUser
          * @param {number} userId userId
-         * @param {UserRequestBody} requestBody requestBody
+         * @param {EditUserRequestBody} requestBody requestBody
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async editUserUsingPUT(userId: number, requestBody: UserRequestBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async editUserUsingPUT(userId: number, requestBody: EditUserRequestBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.editUserUsingPUT(userId, requestBody, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1336,7 +1409,7 @@ export const UserControllerApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary getMe
+         * @summary getLoginUser
          * @param {boolean} [accountNonExpired] 
          * @param {boolean} [accountNonLocked] 
          * @param {string} [authUserGithubUrl] 
@@ -1352,8 +1425,8 @@ export const UserControllerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getMeUsingGET(accountNonExpired?: boolean, accountNonLocked?: boolean, authUserGithubUrl?: string, authUserId?: number, authUserMail?: string, authUserName?: string, authUserPassword?: string, authorities0Authority?: string, credentialsNonExpired?: boolean, enabled?: boolean, password?: string, username?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getMeUsingGET(accountNonExpired, accountNonLocked, authUserGithubUrl, authUserId, authUserMail, authUserName, authUserPassword, authorities0Authority, credentialsNonExpired, enabled, password, username, options);
+        async getLoginUserUsingGET(accountNonExpired?: boolean, accountNonLocked?: boolean, authUserGithubUrl?: string, authUserId?: number, authUserMail?: string, authUserName?: string, authUserPassword?: string, authorities0Authority?: string, credentialsNonExpired?: boolean, enabled?: boolean, password?: string, username?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserInfoModel>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getLoginUserUsingGET(accountNonExpired, accountNonLocked, authUserGithubUrl, authUserId, authUserMail, authUserName, authUserPassword, authorities0Authority, credentialsNonExpired, enabled, password, username, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1389,6 +1462,17 @@ export const UserControllerApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.logoutUsingPOST(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+        /**
+         * 
+         * @summary signup
+         * @param {CreateUserRequestBody} requestBody requestBody
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async signupUsingPOST(requestBody: CreateUserRequestBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.signupUsingPOST(requestBody, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
     }
 };
 
@@ -1399,16 +1483,6 @@ export const UserControllerApiFp = function(configuration?: Configuration) {
 export const UserControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
     const localVarFp = UserControllerApiFp(configuration)
     return {
-        /**
-         * 
-         * @summary createUser
-         * @param {UserRequestBody} requestBody requestBody
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createUserUsingPOST(requestBody: UserRequestBody, options?: any): AxiosPromise<void> {
-            return localVarFp.createUserUsingPOST(requestBody, options).then((request) => request(axios, basePath));
-        },
         /**
          * 
          * @summary deleteUser
@@ -1423,11 +1497,11 @@ export const UserControllerApiFactory = function (configuration?: Configuration,
          * 
          * @summary editUser
          * @param {number} userId userId
-         * @param {UserRequestBody} requestBody requestBody
+         * @param {EditUserRequestBody} requestBody requestBody
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        editUserUsingPUT(userId: number, requestBody: UserRequestBody, options?: any): AxiosPromise<void> {
+        editUserUsingPUT(userId: number, requestBody: EditUserRequestBody, options?: any): AxiosPromise<void> {
             return localVarFp.editUserUsingPUT(userId, requestBody, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1441,7 +1515,7 @@ export const UserControllerApiFactory = function (configuration?: Configuration,
         },
         /**
          * 
-         * @summary getMe
+         * @summary getLoginUser
          * @param {boolean} [accountNonExpired] 
          * @param {boolean} [accountNonLocked] 
          * @param {string} [authUserGithubUrl] 
@@ -1457,8 +1531,8 @@ export const UserControllerApiFactory = function (configuration?: Configuration,
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getMeUsingGET(accountNonExpired?: boolean, accountNonLocked?: boolean, authUserGithubUrl?: string, authUserId?: number, authUserMail?: string, authUserName?: string, authUserPassword?: string, authorities0Authority?: string, credentialsNonExpired?: boolean, enabled?: boolean, password?: string, username?: string, options?: any): AxiosPromise<User> {
-            return localVarFp.getMeUsingGET(accountNonExpired, accountNonLocked, authUserGithubUrl, authUserId, authUserMail, authUserName, authUserPassword, authorities0Authority, credentialsNonExpired, enabled, password, username, options).then((request) => request(axios, basePath));
+        getLoginUserUsingGET(accountNonExpired?: boolean, accountNonLocked?: boolean, authUserGithubUrl?: string, authUserId?: number, authUserMail?: string, authUserName?: string, authUserPassword?: string, authorities0Authority?: string, credentialsNonExpired?: boolean, enabled?: boolean, password?: string, username?: string, options?: any): AxiosPromise<UserInfoModel> {
+            return localVarFp.getLoginUserUsingGET(accountNonExpired, accountNonLocked, authUserGithubUrl, authUserId, authUserMail, authUserName, authUserPassword, authorities0Authority, credentialsNonExpired, enabled, password, username, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1490,6 +1564,16 @@ export const UserControllerApiFactory = function (configuration?: Configuration,
         logoutUsingPOST(options?: any): AxiosPromise<void> {
             return localVarFp.logoutUsingPOST(options).then((request) => request(axios, basePath));
         },
+        /**
+         * 
+         * @summary signup
+         * @param {CreateUserRequestBody} requestBody requestBody
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        signupUsingPOST(requestBody: CreateUserRequestBody, options?: any): AxiosPromise<void> {
+            return localVarFp.signupUsingPOST(requestBody, options).then((request) => request(axios, basePath));
+        },
     };
 };
 
@@ -1500,18 +1584,6 @@ export const UserControllerApiFactory = function (configuration?: Configuration,
  * @extends {BaseAPI}
  */
 export class UserControllerApi extends BaseAPI {
-    /**
-     * 
-     * @summary createUser
-     * @param {UserRequestBody} requestBody requestBody
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserControllerApi
-     */
-    public createUserUsingPOST(requestBody: UserRequestBody, options?: AxiosRequestConfig) {
-        return UserControllerApiFp(this.configuration).createUserUsingPOST(requestBody, options).then((request) => request(this.axios, this.basePath));
-    }
-
     /**
      * 
      * @summary deleteUser
@@ -1528,12 +1600,12 @@ export class UserControllerApi extends BaseAPI {
      * 
      * @summary editUser
      * @param {number} userId userId
-     * @param {UserRequestBody} requestBody requestBody
+     * @param {EditUserRequestBody} requestBody requestBody
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserControllerApi
      */
-    public editUserUsingPUT(userId: number, requestBody: UserRequestBody, options?: AxiosRequestConfig) {
+    public editUserUsingPUT(userId: number, requestBody: EditUserRequestBody, options?: AxiosRequestConfig) {
         return UserControllerApiFp(this.configuration).editUserUsingPUT(userId, requestBody, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -1550,7 +1622,7 @@ export class UserControllerApi extends BaseAPI {
 
     /**
      * 
-     * @summary getMe
+     * @summary getLoginUser
      * @param {boolean} [accountNonExpired] 
      * @param {boolean} [accountNonLocked] 
      * @param {string} [authUserGithubUrl] 
@@ -1567,8 +1639,8 @@ export class UserControllerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserControllerApi
      */
-    public getMeUsingGET(accountNonExpired?: boolean, accountNonLocked?: boolean, authUserGithubUrl?: string, authUserId?: number, authUserMail?: string, authUserName?: string, authUserPassword?: string, authorities0Authority?: string, credentialsNonExpired?: boolean, enabled?: boolean, password?: string, username?: string, options?: AxiosRequestConfig) {
-        return UserControllerApiFp(this.configuration).getMeUsingGET(accountNonExpired, accountNonLocked, authUserGithubUrl, authUserId, authUserMail, authUserName, authUserPassword, authorities0Authority, credentialsNonExpired, enabled, password, username, options).then((request) => request(this.axios, this.basePath));
+    public getLoginUserUsingGET(accountNonExpired?: boolean, accountNonLocked?: boolean, authUserGithubUrl?: string, authUserId?: number, authUserMail?: string, authUserName?: string, authUserPassword?: string, authorities0Authority?: string, credentialsNonExpired?: boolean, enabled?: boolean, password?: string, username?: string, options?: AxiosRequestConfig) {
+        return UserControllerApiFp(this.configuration).getLoginUserUsingGET(accountNonExpired, accountNonLocked, authUserGithubUrl, authUserId, authUserMail, authUserName, authUserPassword, authorities0Authority, credentialsNonExpired, enabled, password, username, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1605,6 +1677,18 @@ export class UserControllerApi extends BaseAPI {
      */
     public logoutUsingPOST(options?: AxiosRequestConfig) {
         return UserControllerApiFp(this.configuration).logoutUsingPOST(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary signup
+     * @param {CreateUserRequestBody} requestBody requestBody
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserControllerApi
+     */
+    public signupUsingPOST(requestBody: CreateUserRequestBody, options?: AxiosRequestConfig) {
+        return UserControllerApiFp(this.configuration).signupUsingPOST(requestBody, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

@@ -1,5 +1,6 @@
 package com.example.ants.controller.api;
 
+import com.example.ants.auth.model.AuthUser;
 import com.example.ants.enums.error.DetailErrorMessage;
 import com.example.ants.enums.error.ErrorCode;
 import com.example.ants.exception.ApiException;
@@ -9,6 +10,7 @@ import com.example.ants.service.ProjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -21,10 +23,8 @@ public class ProjectController {
     private final ProjectService projectService;
 
     @GetMapping()
-    public ResponseEntity<AllProjectResponse> getAllProjectsInLoginUser() {
-        // TODO: ログイン処理実装後ログインユーザーのIDを取得
-        final int loginUserId = 1;
-        return new ResponseEntity<>(projectService.getAllProjectWithUsersByUserId(loginUserId), HttpStatus.OK);
+    public ResponseEntity<AllProjectResponse> getAllProjectsInLoginUser(@AuthenticationPrincipal AuthUser authUser) {
+        return new ResponseEntity<>(projectService.getAllProjectWithUsersByUserId(authUser.getAuthUser().getId()), HttpStatus.OK);
     }
 
     @PostMapping()

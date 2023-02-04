@@ -3,7 +3,7 @@ import thunk from "redux-thunk";
 import { createLogger } from "redux-logger";
 import { AllProjectsInLoginUserReducer } from "../utils/allProjectsInLoginUser";
 import { ColorReducer } from "../utils/color";
-import { UserInfoReducer } from "../utils/userInfo";
+import { LoginUserInfoReducer } from "../utils/loginUserInfo";
 import { ProjectApiStatusReducer } from "../project/projectApiStatus";
 import { ProjectInputReducer } from "../project/projectInput";
 import { AllUsersReducer } from "../utils/allUsers";
@@ -21,7 +21,7 @@ const createStore = () => {
             projectInput: ProjectInputReducer,
 
             // utils
-            userInfo: UserInfoReducer,
+            loginUserInfo: LoginUserInfoReducer,
             allProjectsInLoginUser: AllProjectsInLoginUserReducer,
             allUsers: AllUsersReducer,
             color: ColorReducer,

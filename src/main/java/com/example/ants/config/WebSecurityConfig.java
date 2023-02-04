@@ -34,7 +34,7 @@ public class WebSecurityConfig {
 
     private static final String[] ACCESSIBLE_PATH = {
             "/", "/login", "/api/v1/user/login", "/api/v1/user/signup", "/api/v1/user/logout", "/css/**",
-            "/js/**", "/fonts/**", "/images/**", "/swagger-ui/**", "/v2/api-docs/**", "/proxy/**"};
+            "/js/**", "/fonts/**", "/images/**", "/swagger-ui/**", "/v2/api-docs/**", "/proxy/**", "/src/**"};
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

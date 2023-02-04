@@ -26,6 +26,27 @@ public class UserRepository {
         return results.stream().findFirst();
     }
 
+    public Optional<User> selectUserInfoByMail(final String mail) {
+        final var example = new UserExample();
+        example.createCriteria().andMailEqualTo(mail);
+        final var results = userMapper.selectByExample(example);
+        return results.stream().findFirst();
+    }
+
+    public Optional<User> selectUserInfoByUserNameNotMe(final int userId, final String name) {
+        final var example = new UserExample();
+        example.createCriteria().andNameEqualTo(name).andIdNotEqualTo(userId);
+        final var results = userMapper.selectByExample(example);
+        return results.stream().findFirst();
+    }
+
+    public Optional<User> selectUserInfoByMailNotMe(final int userId, final String mail) {
+        final var example = new UserExample();
+        example.createCriteria().andMailEqualTo(mail).andIdNotEqualTo(userId);
+        final var results = userMapper.selectByExample(example);
+        return results.stream().findFirst();
+    }
+
     public Optional<User> selectUserInfoByUserId(final int userId) {
         final var example = new UserExample();
         example.createCriteria().andIdEqualTo(userId);
@@ -37,8 +58,8 @@ public class UserRepository {
         return userMapper.insert(record);
     }
 
-    public int editUser(final User record) {
-        return userMapper.updateByPrimaryKey(record);
+    public int editUserExceptPassword(final int userId, final String name, final String mail, final String githubUrl) {
+        return userMapper.updateUserExceptPassword(userId, name, mail, githubUrl);
     }
 
     public int deleteUser(final int userId) {

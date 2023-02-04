@@ -8,3 +8,4 @@ export {default as LoginForm} from "./LoginForm";
 export {default as ProjectPageBottomList} from "./ProjectPageBottomList";
 export {default as ProjectInputModalContent} from "./modalInnerContents/ProjectInputModalContent";
 export {default as ProjectInfoModalContent} from "./modalInnerContents/ProjectInfoModalContent";
+export {default as UserInputModalContent} from "./modalInnerContents/UserInputModalContent";

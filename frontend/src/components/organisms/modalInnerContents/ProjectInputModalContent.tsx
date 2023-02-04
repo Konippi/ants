@@ -5,7 +5,7 @@ import { UserModel } from "../../../client";
 import { getProjectInput, changeProjectInput, changeProjectSelect } from "../../../redux/project/projectInput";
 import { StoreType } from "../../../redux/store";
 import { getAllUsers } from "../../../redux/utils/allUsers";
-import { getUserInfo } from "../../../redux/utils/userInfo";
+import { getLoginUserInfo } from "../../../redux/utils/loginUserInfo";
 import { MultiSelectType } from "../../../type/multiSelectType";
 import { BaseModalInput, BaseMultiInput, BaseTextButton } from "../../atoms";
 
@@ -20,7 +20,7 @@ const ProjectInputModalContent: FC<Props> = memo(function projectInputModalConte
     const selector = useSelector((state: StoreType) => state);
     const inputState = getProjectInput(selector);
     const allUsers = getAllUsers(selector);
-    const loginUserId = getUserInfo(selector).id as number;
+    const loginUserId = getLoginUserInfo(selector).id as number;
 
     // 文字変更時
     const handleChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
@@ -49,10 +49,10 @@ const ProjectInputModalContent: FC<Props> = memo(function projectInputModalConte
     return (
         <>
             <BaseModalInput
-                title="Name"
+                title="Name *"
                 name="name"
                 value={inputState.name}
-                placeholder="SampleProject"
+                placeholder="ProjectName"
                 onChange={handleChangeInput}
             />
             <BaseModalInput

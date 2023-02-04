@@ -30,7 +30,7 @@ const ProjectPageBottomList: FC<Props> = memo(function projectPageBottomList(pro
     
     return (
         <div className="flex justify-center flex-col w-full my-10">
-            <div className="w-[500px] mb-6">
+            <div className="w-[500px] mt-5 mb-10">
                 <BaseInput
                     placeholder="Search Project"
                     value={searchWord}

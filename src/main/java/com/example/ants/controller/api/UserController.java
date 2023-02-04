@@ -1,11 +1,11 @@
 package com.example.ants.controller.api;
 
 import com.example.ants.auth.model.AuthUser;
-import com.example.ants.db.entity.User;
 import com.example.ants.enums.error.DetailErrorMessage;
 import com.example.ants.enums.error.ErrorCode;
 import com.example.ants.exception.ApiException;
-import com.example.ants.model.request.user.UserRequestBody;
+import com.example.ants.model.request.user.CreateUserRequestBody;
+import com.example.ants.model.request.user.EditUserRequestBody;
 import com.example.ants.model.response.user.UserInfoModel;
 import com.example.ants.model.response.user.UsersResponse;
 import com.example.ants.service.UserService;
@@ -29,9 +29,16 @@ public class UserController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<User> getMe(@AuthenticationPrincipal AuthUser authUser) {
+    public ResponseEntity<UserInfoModel> getLoginUser(@AuthenticationPrincipal AuthUser authUser) {
+        final var authUserInfo = authUser.getAuthUser();
+        final var userInfo = UserInfoModel.builder()
+                .id(authUserInfo.getId())
+                .name(authUserInfo.getName())
+                .githubUrl(authUserInfo.getGithubUrl())
+                .mail(authUserInfo.getMail())
+                .build();
 
-        return new ResponseEntity<>(authUser.getAuthUser(), HttpStatus.OK);
+        return new ResponseEntity<>(userInfo, HttpStatus.OK);
     }
 
     @GetMapping("/{userId}")
@@ -41,7 +48,7 @@ public class UserController {
 
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createUser(@RequestBody @Validated UserRequestBody requestBody, BindingResult result) throws ApiException {
+    public void signup(@RequestBody @Validated CreateUserRequestBody requestBody, BindingResult result) throws ApiException {
         if (result.hasErrors()) {
             throw new ApiException(ErrorCode.INVALID_QUERY_PARAMETER, DetailErrorMessage.INVALID_QUERY_PARAMETER.getMessage());
         }
@@ -69,17 +76,22 @@ public class UserController {
 
     @PutMapping("/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void editUser(@PathVariable("userId") final int userId, @RequestBody @Validated UserRequestBody requestBody, BindingResult result) throws ApiException {
+    public void editUser(@PathVariable("userId") final int userId,
+                         @RequestBody @Validated EditUserRequestBody requestBody, BindingResult result,
+                         @AuthenticationPrincipal AuthUser authUser) throws ApiException {
         if (result.hasErrors()) {
             throw new ApiException(ErrorCode.INVALID_QUERY_PARAMETER, DetailErrorMessage.INVALID_QUERY_PARAMETER.getMessage());
         }
 
         final String name = requestBody.getName();
-        final String password = requestBody.getPassword();
         final String mail = requestBody.getMail();
         final String githubUrl = requestBody.getGithubUrl();
+        userService.editUser(userId, name, mail, githubUrl);
 
-        userService.editUser(userId, name, password, mail, githubUrl);
+        // DBのユーザー情報を更新後、セッション管理のユーザー情報を更新
+        authUser.getAuthUser().setName(name);
+        authUser.getAuthUser().setMail(mail);
+        authUser.getAuthUser().setGithubUrl(githubUrl);
     }
 
     @DeleteMapping("/{userId}")

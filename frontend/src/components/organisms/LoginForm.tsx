@@ -1,42 +1,41 @@
-import React, {FC, memo, useEffect, useState} from "react";
+import React, {FC, memo, useState} from "react";
 import { BaseInput, BaseTextButton } from "../atoms";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { userApi } from "../../client/clientWrapper";
+import { Alert } from "@mui/material";
 
-type Props = {
-    onSubmit: () => void;
-}
+const LoginForm: FC = memo(function loginForm() {
+    const [name, setName] = useState("");
+    const [password, setPassword] = useState("");
+    const [isError, setIsError] = useState(false);
+    const errorMessage = "Incorrect name or password";
 
-const LoginForm: FC<Props> = memo(function loginForm(props: Props) {
-    
-    const submit = () => {
-        userApi.loginUsingPOST("choshi daiki", "pass")
-            .then(res => {
-                console.log(res);
-                location.href = "/";
-            })
-            .catch(e => {
-                console.log(e);
-                
-            });
+    const handleSubmit = () => {
+        userApi.loginUsingPOST(name, password)
+            .then(() => location.href = "/")
+            .catch(() => setIsError(true));
     };
+
     return (
-        <div className="flex flex-col items-center">
-            <h2>Login</h2>
+        <div className="flex flex-col items-center gap-6 w-[250px]">
+            <h2 className=" text-lg mb-2 font-semibold">Login</h2>
+            {isError && (
+                <Alert className="w-full" severity="error">{errorMessage}</Alert>
+            )}
             <BaseInput
-                placeholder="UserName"
-                onChange={(e) => console.log(e)}
-                value=""
+                placeholder="name"
+                onChange={(e) => setName(e.target.value)}
+                value={name}
             />
             <BaseInput
                 placeholder="Password"
-                onChange={(e) => console.log(e)}
-                value=""
+                type="password"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
             />
             <BaseTextButton
                 text="Login"
-                handleClick={submit}
+                isDisable={name === "" || password === ""}
+                handleClick={handleSubmit}
             />
         </div>
     );

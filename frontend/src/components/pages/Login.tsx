@@ -13,20 +13,16 @@ const Login: FC = () => {
             <div className="flex justify-center items-center"
                 style={{minHeight: "calc(100vh - 4rem)"}}
             >
-                <div className="flex rounded-xl py-16 px-36 border-2 border-solid flex-wrap"
+                <div className="flex rounded-xl py-16 px-16 border-2 border-solid flex-wrap my-14"
                     style={{borderColor: color.baseColor.color}}
                 >
-                    <h1 className="w-full text-center">ANTS</h1>
+                    <h1 className="w-full text-center text-3xl mb-8 font-semibold">ANTS</h1>
                     <div className="flex w-full justify-center">
-                        <SignUpForm
-                            onSubmit={() => console.log("signUp")}
-                        />
+                        <SignUpForm/>
                         <div className="mx-16 h-full w-[2px] relative"
                             style={{backgroundColor: color.baseColor.color}}
                         />
-                        <LoginForm
-                            onSubmit={() => console.log("login")}
-                        />
+                        <LoginForm/>
                     </div>
                 </div>
             </div>
