@@ -22,7 +22,7 @@ const LoginForm: FC = memo(function loginForm() {
                 <Alert className="w-full" severity="error">{errorMessage}</Alert>
             )}
             <BaseInput
-                placeholder="name"
+                placeholder="UserName"
                 onChange={(e) => setName(e.target.value)}
                 value={name}
             />
