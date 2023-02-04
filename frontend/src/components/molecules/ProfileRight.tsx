@@ -10,7 +10,7 @@ type Props = {
     userInfo: UserInfoModel;
 };
 
-const ProfileRight: FC<Props> = memo((props: Props) => {
+const ProfileRight: FC<Props> = memo(function profileRight(props: Props) {
     const selector = useSelector((state: StoreType) => state);
     const color: ColorType = getColor(selector);
     const iconColor = color.mainColor.color;
@@ -27,13 +27,13 @@ const ProfileRight: FC<Props> = memo((props: Props) => {
             <div className="mb-4">
                 <ProfileDetail
                     icon={<BsGithub size={24} color={iconColor} className="opacity-60" />}
-                    content={userInfo.githubName}
+                    content={userInfo.githubUrl}
                 />
             </div>
             <div>
                 <ProfileDetail
                     icon={<BsKey size={24} color={iconColor} className="opacity-60" />}
-                    content={"*******"}
+                    content="*******"
                 />
             </div>
         </div>

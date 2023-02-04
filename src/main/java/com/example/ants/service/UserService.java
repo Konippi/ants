@@ -9,6 +9,7 @@ import com.example.ants.model.response.user.UserModel;
 import com.example.ants.model.response.user.UsersResponse;
 import com.example.ants.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public UsersResponse getAllUsersList() {
         final List<User> allUsersList =  userRepository.selectAllUsers();
@@ -32,27 +34,32 @@ public class UserService {
         return UserInfoModel.builder().id(entity.getId()).name(entity.getName()).mail(entity.getMail()).githubUrl(entity.getGithubUrl()).build();
     }
 
-    public void createUser(final String name, final String password, final String mail, final String githubUrl) {
-        final var newUser = new User();
+    public void createUser(final String name, final String password, final String mail, final String githubUrl) throws ApiException {
+        if(userRepository.selectUserInfoByUserName(name).isPresent()) {
+            throw new ApiException(ErrorCode.INVALID_QUERY_PARAMETER, "UserName already taken");
+        }
+        if(userRepository.selectUserInfoByMail(mail).isPresent()) {
+            throw new ApiException(ErrorCode.INVALID_QUERY_PARAMETER, "Email already taken");
+        }
 
+        final var newUser = new User();
         newUser.setName(name);
-        newUser.setPassword(password);
+        newUser.setPassword(passwordEncoder.encode(password));
         newUser.setMail(mail);
         newUser.setGithubUrl(githubUrl);
 
         userRepository.createUser(newUser);
     }
 
-    public void editUser(final int userId, final String name, final String password, final String mail, final String githubUrl) {
-        final var updatingUser = new User();
+    public void editUser(final int userId, final String name, final String mail, final String githubUrl) {
+        if(userRepository.selectUserInfoByUserNameNotMe(userId, name).isPresent()) {
+            throw new ApiException(ErrorCode.INVALID_QUERY_PARAMETER, "UserName already taken");
+        }
+        if(userRepository.selectUserInfoByMailNotMe(userId, mail).isPresent()) {
+            throw new ApiException(ErrorCode.INVALID_QUERY_PARAMETER, "Email already taken");
+        }
 
-        updatingUser.setId(userId);
-        updatingUser.setName(name);
-        updatingUser.setPassword(password);
-        updatingUser.setMail(mail);
-        updatingUser.setGithubUrl(githubUrl);
-
-        userRepository.editUser(updatingUser);
+        userRepository.editUserExceptPassword(userId, name, mail, githubUrl);
     }
 
     public void deleteUser(final int userId) {

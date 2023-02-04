@@ -1,8 +1,6 @@
 package com.example.ants.repository;
 
-import com.example.ants.db.entity.Project;
 import com.example.ants.db.entity.RUserProjectExample;
-import com.example.ants.db.mapper.ProjectMapper;
 import com.example.ants.db.mapper.RUserProjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

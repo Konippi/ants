@@ -2,7 +2,7 @@ import {
     AllProjectResponse,
     ProjectRequestBody,
     UserInfoModel,
-    UserResponse
+    UsersResponse
 } from "../../client";
 import { ProjectApiStatusType } from "../project/projectApiStatus";
 import { ColorType } from "../utils/color";
@@ -14,8 +14,8 @@ export interface StoreType {
     projectInput: ProjectRequestBody;
 
     // utils
-    userInfo: UserInfoModel;
+    loginUserInfo: UserInfoModel;
     allProjectsInLoginUser: AllProjectResponse;
-    allUsers: UserResponse;
+    allUsers: UsersResponse;
     color: ColorType;
 } 

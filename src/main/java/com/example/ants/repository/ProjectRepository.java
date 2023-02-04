@@ -1,7 +1,6 @@
 package com.example.ants.repository;
 
 import com.example.ants.db.entity.Project;
-import com.example.ants.db.entity.User;
 import com.example.ants.db.mapper.ProjectMapper;
 import com.example.ants.model.entity.ProjectWithUsersEntity;
 import lombok.RequiredArgsConstructor;
