@@ -67,7 +67,7 @@ const SignUpForm: FC = memo(function signUpForm() {
                 onChange={(e) => setRetypePWD(e.target.value)}
             />
             <BaseTextButton
-                text="Login"
+                text="Sign Up"
                 isDisable={
                     inputState.name === "" ||
                     inputState.mail === "" || 
