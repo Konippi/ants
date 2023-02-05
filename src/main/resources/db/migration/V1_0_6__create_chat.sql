@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS `chat`
     `user_id` INT NOT NULL,
     `project_id` INT NOT NULL,
     `message` VARCHAR(256) NOT NULL,
-    `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
 
     PRIMARY KEY(`id`),
     FOREIGN KEY fk_chat_user_id(`user_id`) REFERENCES user(id) ON DELETE CASCADE ON UPDATE CASCADE,
