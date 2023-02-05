@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { UserInfoModel } from "../../client";
+import { UserInfoModel } from "../../client/restAPI";
 import { StoreType } from "../../redux/store";
 import { ColorType, getColor } from "../../redux/utils/color";
 import { getLoginUserInfo } from "../../redux/utils/loginUserInfo";

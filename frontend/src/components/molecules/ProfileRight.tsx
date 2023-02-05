@@ -4,7 +4,7 @@ import {BsEnvelope, BsGithub, BsKey} from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { StoreType } from "../../redux/store";
 import { ColorType, getColor } from "../../redux/utils/color";
-import { UserInfoModel } from "../../client";
+import { UserInfoModel } from "../../client/restAPI";
 
 type Props = {
     userInfo: UserInfoModel;

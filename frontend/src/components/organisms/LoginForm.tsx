@@ -1,6 +1,6 @@
 import React, {FC, memo, useState} from "react";
 import { BaseInput, BaseTextButton } from "../atoms";
-import { userApi } from "../../client/clientWrapper";
+import { userApi } from "../../client/restAPI/clientWrapper";
 import { Alert } from "@mui/material";
 
 const LoginForm: FC = memo(function loginForm() {

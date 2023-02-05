@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ProjectWithUsers } from "../../client";
+import { ProjectWithUsers } from "../../client/restAPI";
 import { createNewProjectAPI, deleteProjectAPI, editProjectAPI } from "../../redux/project/projectApiStatus";
 import { cleanProjectInput, setProjectInput } from "../../redux/project/projectInput";
 import { StoreType } from "../../redux/store";

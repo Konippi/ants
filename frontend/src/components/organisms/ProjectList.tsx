@@ -1,5 +1,5 @@
 import React, {FC, memo} from "react";
-import { Project, ProjectWithUsers } from "../../client";
+import { Project, ProjectWithUsers } from "../../client/restAPI";
 import { ProjectListItem } from "../molecules";
 
 type Props = {

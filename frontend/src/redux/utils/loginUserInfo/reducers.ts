@@ -1,4 +1,4 @@
-import { UserInfoModel } from "../../../client";
+import { UserInfoModel } from "../../../client/restAPI";
 import * as Actions from "./actions";
 
 export const initialState: UserInfoModel= {

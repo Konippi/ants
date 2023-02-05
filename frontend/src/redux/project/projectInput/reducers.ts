@@ -1,4 +1,4 @@
-import { ProjectRequestBody } from "../../../client";
+import { ProjectRequestBody } from "../../../client/restAPI";
 import * as Actions from "./actions";
 
 export const initialState: ProjectRequestBody = {
