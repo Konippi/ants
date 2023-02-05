@@ -8,3 +8,4 @@ export {default as BaseTextButton} from "./BaseTextButton";
 export {default as BaseIconButton} from "./BaseIconButton";
 export {default as BaseTag} from "./BaseTag";
 export {default as BaseMultiInput} from "./BaseMultiInput";
+export {default as BaseListItemText} from "./BaseListItemText";

@@ -7,6 +7,7 @@ import { LoginUserInfoReducer } from "../utils/loginUserInfo";
 import { ProjectApiStatusReducer } from "../project/projectApiStatus";
 import { ProjectInputReducer } from "../project/projectInput";
 import { AllUsersReducer } from "../utils/allUsers";
+import { SideBarStateReducer } from "../task/taskSidebar";
 
 const createStore = () => {
     const logger = createLogger({
@@ -19,6 +20,9 @@ const createStore = () => {
             // ProjectPage
             projectApiStatus: ProjectApiStatusReducer,
             projectInput: ProjectInputReducer,
+
+            // TaskPage
+            sidebarState: SideBarStateReducer,
 
             // utils
             loginUserInfo: LoginUserInfoReducer,
