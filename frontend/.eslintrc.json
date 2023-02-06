@@ -37,6 +37,7 @@
         "error",
         "always"
       ],
+      // react
       "react-hooks/rules-of-hooks": 0,
       "react/jsx-closing-bracket-location": "error",
       "react/jsx-curly-brace-presence": "error",
@@ -45,7 +46,11 @@
         "error",
         "never"
       ],
-      "react/jsx-wrap-multilines": "error"
+      "react/jsx-wrap-multilines": "error",
+      "react-hooks/exhaustive-deps": "off",
+
+      // typescript
+      "@typescript-eslint/no-inferrable-types": "off"
     }
   }
   

@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
-public class UserRequestBody {
+public class CreateUserRequestBody {
     @NotNull
     @Size(max = 32)
     private String name;

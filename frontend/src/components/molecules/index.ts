@@ -3,3 +3,4 @@ export {default as ProfileRight} from "./ProfileRight";
 export {default as ProjectListItem} from "./ProjectListItem";
 export {default as ProjectSquareListItem} from "./ProjectSquareListItem";
 export {default as BaseModal} from "./BaseModal";
+export {default as BaseListItem} from "./BaseListItem";

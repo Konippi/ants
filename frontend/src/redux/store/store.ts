@@ -3,10 +3,11 @@ import thunk from "redux-thunk";
 import { createLogger } from "redux-logger";
 import { AllProjectsInLoginUserReducer } from "../utils/allProjectsInLoginUser";
 import { ColorReducer } from "../utils/color";
-import { UserInfoReducer } from "../utils/userInfo";
+import { LoginUserInfoReducer } from "../utils/loginUserInfo";
 import { ProjectApiStatusReducer } from "../project/projectApiStatus";
 import { ProjectInputReducer } from "../project/projectInput";
 import { AllUsersReducer } from "../utils/allUsers";
+import { SideBarStateReducer } from "../task/taskSidebar";
 
 const createStore = () => {
     const logger = createLogger({
@@ -20,8 +21,11 @@ const createStore = () => {
             projectApiStatus: ProjectApiStatusReducer,
             projectInput: ProjectInputReducer,
 
+            // TaskPage
+            sidebarState: SideBarStateReducer,
+
             // utils
-            userInfo: UserInfoReducer,
+            loginUserInfo: LoginUserInfoReducer,
             allProjectsInLoginUser: AllProjectsInLoginUserReducer,
             allUsers: AllUsersReducer,
             color: ColorReducer,

@@ -5,7 +5,7 @@ import { createNewProjectAPI, deleteProjectAPI, editProjectAPI } from "../../red
 import { cleanProjectInput, setProjectInput } from "../../redux/project/projectInput";
 import { StoreType } from "../../redux/store";
 import { getAllProjectsInLoginUser } from "../../redux/utils/allProjectsInLoginUser";
-import { getUserInfo } from "../../redux/utils/userInfo";
+import { getLoginUserInfo } from "../../redux/utils/loginUserInfo";
 import { BaseTextButton, BaseTitle } from "../atoms";
 import { BaseModal } from "../molecules";
 import {
@@ -19,12 +19,12 @@ const Project: FC = () => {
     const title = "Project Management";
     const selector = useSelector((state: StoreType) => state);
     const allProjects = getAllProjectsInLoginUser(selector);
-    const userInfo = getUserInfo(selector);
+    const loginUserInfo = getLoginUserInfo(selector);
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(cleanProjectInput());
-    }, [userInfo.id]);
+    }, [loginUserInfo.id]);
 
     // 詳細モーダルの開閉状態 + プロジェクト詳細の情報
     const [isOpenedInfoModal, setIsOpenedInfoModal] = useState(false);
@@ -88,10 +88,12 @@ const Project: FC = () => {
                 projects={allProjects.projects}
                 handleOpenInfoModal={handleOpenInfoModal}
             />
-            <ProjectPageBottomList
-                projects={allProjects.projects}
-                handleOpenInfoModal={handleOpenInfoModal}
-            />
+            {allProjects.projects !== undefined && allProjects.projects.length > 0 && (
+                <ProjectPageBottomList
+                    projects={allProjects.projects}
+                    handleOpenInfoModal={handleOpenInfoModal}
+                />
+            )}
             {isOpenedInfoModal && (
                 <BaseModal
                     title="Project Information"

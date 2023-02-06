@@ -8,4 +8,15 @@
         user.mail AS user_mail,
         user.github_url AS user_github_url
     </sql>
+
+
+    <update id="updateUserExceptPassword">
+        UPDATE user
+            SET name = #{name},
+                mail = #{mail},
+                github_url = #{githubUrl}
+            <where>
+                user.id = #{userId}
+            </where>
+    </update>
 </mapper>
