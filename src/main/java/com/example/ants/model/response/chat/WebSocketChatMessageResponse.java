@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
-public class ChatMessageResponse {
+public class WebSocketChatMessageResponse {
     private int id;
     private int projectId;
     private int userId;
