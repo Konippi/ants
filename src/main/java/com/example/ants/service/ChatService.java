@@ -2,7 +2,6 @@ package com.example.ants.service;
 
 import com.example.ants.db.entity.Chat;
 import com.example.ants.model.response.chat.ChatMessagesResponse;
-import com.example.ants.model.response.chat.WebSocketChatMessageResponse;
 import com.example.ants.repository.ChatRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,7 +20,7 @@ public class ChatService {
     }
 
 
-    public WebSocketChatMessageResponse createChat(final int projectId, final int userId, final String message) {
+    public Chat createChat(final int projectId, final int userId, final String message) {
         final Chat chat = new Chat();
         chat.setProjectId(projectId);
         chat.setUserId(userId);
@@ -29,9 +28,6 @@ public class ChatService {
         chat.setCreatedAt(LocalDateTime.now());
         chatRepository.createChat(chat);
 
-        return WebSocketChatMessageResponse.builder()
-                .id(chat.getId()).projectId(chat.getProjectId()).userId(chat.getUserId())
-                .message(chat.getMessage()).createdAt(chat.getCreatedAt())
-                .build();
+        return chat;
     }
 }
