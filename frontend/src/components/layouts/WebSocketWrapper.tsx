@@ -1,7 +1,7 @@
 import React, { FC,  memo,  ReactNode, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { connectWebSocketByProjectIdList } from "../../client/webSocket/webSocket";
-import { fetchChatMessagesByProjectIdList, setChatMessageFromWebSocket } from "../../redux/chat/messages";
+import { fetchChatMessagesByProjectIdList, setChatMessageFromWebSocket } from "../../redux/chat/chatData";
 import { StoreType } from "../../redux/store";
 import { getAllProjectsInLoginUser } from "../../redux/utils/allProjectsInLoginUser";
 import { Chat } from "../../client/restAPI";

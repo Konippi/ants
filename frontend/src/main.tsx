@@ -7,6 +7,7 @@ import "./css/index.css";
 import "./styles/Ants.scss";
 import store from "./redux/store/store";
 import AuthWrapper from "./components/layouts/AuthWrapper";
+import WebSocketWrapper from "./components/layouts/WebSocketWrapper";
 
 
 ReactDOM.render(
@@ -24,7 +25,9 @@ ReactDOM.render(
                     element={
                         <Layout>
                             <AuthWrapper>
-                                <Home/>
+                                <WebSocketWrapper>
+                                    <Home/>
+                                </WebSocketWrapper>
                             </AuthWrapper>
                         </Layout>
                     }
@@ -33,7 +36,9 @@ ReactDOM.render(
                     element={
                         <Layout>
                             <AuthWrapper>
-                                <Project/>
+                                <WebSocketWrapper>
+                                    <Project/>
+                                </WebSocketWrapper>
                             </AuthWrapper>
                         </Layout>
                     }
@@ -42,7 +47,9 @@ ReactDOM.render(
                     element={
                         <Layout>
                             <AuthWrapper>
-                                <Task/>
+                                <WebSocketWrapper>
+                                    <Task/>
+                                </WebSocketWrapper>
                             </AuthWrapper>
                         </Layout>
                     }
@@ -51,7 +58,9 @@ ReactDOM.render(
                     element={
                         <Layout>
                             <AuthWrapper>
-                                <Chat/>
+                                <WebSocketWrapper>
+                                    <Chat/>
+                                </WebSocketWrapper>
                             </AuthWrapper>
                         </Layout>
                     }

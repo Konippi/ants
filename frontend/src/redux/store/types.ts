@@ -1,5 +1,6 @@
 import {
     AllProjectResponse,
+    ChatMessagesResponse,
     ProjectRequestBody,
     UserInfoModel,
     UsersResponse
@@ -8,6 +9,8 @@ import { ProjectApiStatusType } from "../project/projectApiStatus";
 import { ColorType } from "../utils/color";
 
 export interface StoreType {
+    //ChatPage
+    chatData: ChatMessagesResponse;
 
     // ProjectPage
     projectApiStatus: ProjectApiStatusType;

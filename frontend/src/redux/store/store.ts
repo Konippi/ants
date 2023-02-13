@@ -7,15 +7,19 @@ import { LoginUserInfoReducer } from "../utils/loginUserInfo";
 import { ProjectApiStatusReducer } from "../project/projectApiStatus";
 import { ProjectInputReducer } from "../project/projectInput";
 import { AllUsersReducer } from "../utils/allUsers";
+import { ChatDataReducer } from "../chat/chatData";
 
 const createStore = () => {
     const logger = createLogger({
         collapsed: true,
         diff: true
     });
-
+    
     return reduxCreateStore(
         combineReducers({
+            // ChatPage
+            chatData: ChatDataReducer,
+            
             // ProjectPage
             projectApiStatus: ProjectApiStatusReducer,
             projectInput: ProjectInputReducer,
