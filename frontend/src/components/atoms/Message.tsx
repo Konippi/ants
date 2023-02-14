@@ -20,12 +20,18 @@ const Message: FC<Props> = memo(function message(props: Props) {
 
     return (
         <div ref={scrollTargetRef}
-            className={`${isMe && "flex-row-reverse"} flex gap-2 items-center px-4 py-1`}
+            className={`${isMe && "flex-row-reverse"} flex gap-2 items-start px-4 py-2`}
         >
-            <span>{userIcon}</span>
-            <span>{message}</span>
-            <span>{time}</span>
-            <span>{userName}</span>
+            <div className="mt-[20px]">{userIcon}</div>
+            <div className={`${isMe && "items-end"} flex flex-col`}>
+                <div className="text-sm opacity-80">{userName}</div>
+                <div className={`${isMe && "flex-row-reverse"} flex items-end gap-1`}>
+                    <div className={`${isMe ? "bg-lime-400" : "bg-gray-100"} p-2 border border-gray-400 border-solid rounded-2xl max-w-xl`}>
+                        {message}
+                    </div>
+                    <div className="text-xs opacity-60 mb-[1px]">{time}</div>
+                </div>
+            </div>
         </div>
     );
 });

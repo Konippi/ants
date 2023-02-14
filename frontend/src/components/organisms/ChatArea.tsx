@@ -66,7 +66,7 @@ const ChatArea: FC<Props> = memo(function chatArea(props: Props) {
                                 message={chatMessage.message}
                                 time={getTime(currentCreatedAt)}
                                 userName={getUserNameFromAllUserByUserId(allUser.users, chatMessage.userId)}
-                                userIcon={<BsPersonCircle size={30} color={color.mainColor.color} className="opacity-60" />}
+                                userIcon={<BsPersonCircle size={32} color={color.mainColor.color} className="opacity-60" />}
                                 isMe={chatMessage.userId === loginUserInfo.id}
                             />
                         </div>
