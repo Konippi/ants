@@ -3,17 +3,19 @@ import React, {FC, ReactNode} from "react";
 type Props = {
     icon: ReactNode;
     size: string;
+    isDisable?: boolean;
     handleClick: () => void;
 }
 
 const BaseIconButton: FC<Props> = (props: Props) => {
-    const {icon, size, handleClick} = props;
+    const {icon, size, isDisable, handleClick} = props;
     
     return (
         <button
-            className="hover:opacity-80 rounded-md p-1 ml-auto flex items-center justify-center"
+            className={`${isDisable ? "opacity-40" : "hover:opacity-80"} rounded-md p-1 ml-auto flex items-center justify-center`}
             style={{width: size, height: size}}
             onClick={handleClick}
+            disabled={isDisable}
         >
             {icon}
         
