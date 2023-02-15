@@ -19,7 +19,7 @@ const Chat: FC = () => {
     return (
         <>
             <div className="w-full flex justify-center items-center h-[calc(100vh-4rem)]">
-                <div className="flex flex-col gap-2 w-[20%] h-full bg-slate-100">
+                <div className="flex flex-col gap-1 w-[20%] h-full bg-slate-100">
                     <p className="text-center">サイドバー（仮）</p>
                     {allProjects.projects?.map(projectWithUser => (
                         <BaseTextButton
