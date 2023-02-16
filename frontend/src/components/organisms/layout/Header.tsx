@@ -25,9 +25,7 @@ const Header: FC = memo(function Header() {
     // ログアウトハンドリング
     const handleLogout = () => {
         userApi.logoutUsingPOST()
-            .then(() => {
-                location.href = "/login";
-            });
+            .then(() => location.href = "/login");
     };
     
     return (
