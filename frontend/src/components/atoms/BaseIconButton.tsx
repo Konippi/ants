@@ -3,7 +3,7 @@ import React, {FC, ReactNode} from "react";
 type Props = {
     icon: ReactNode;
     size: string;
-    handleClick: () => void;
+    handleClick: (() => void) | ((event: React.MouseEvent<HTMLElement>) => void);
 }
 
 const BaseIconButton: FC<Props> = (props: Props) => {
