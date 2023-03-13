@@ -13,15 +13,17 @@
     "pbuilddev": "REACT_APP_SERVER=dev tsc && vite build && cp -Rf build/static ../src/main/resources/static/ && cp -Rf build/*.* ../src/main/resources/templates/",
     "pbuildprod": "REACT_APP_SERVER=prod tsc && vite build && cp -Rf build/static ../src/main/resources/static/ && cp -Rf build/*.* ../src/main/resources/templates/",
     "preview": "vite preview",
-    "codegen": "openapi-generator-cli generate -g typescript-axios -i ../swagger.json -o ./src/client/"
+    "codegen": "openapi-generator-cli generate -g typescript-axios -i ../swagger.json -o ./src/client/restAPI/"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@mui/material": "^5.11.6",
     "@openapitools/openapi-generator-cli": "^2.5.1",
+    "@stomp/stompjs": "^6.1.2",
     "dotenv": "^8.2.0",
     "dotenv-expand": "^5.1.0",
+    "events": "^3.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",

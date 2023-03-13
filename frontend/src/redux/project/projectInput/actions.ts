@@ -1,4 +1,4 @@
-import { ProjectRequestBody } from "../../../client";
+import { ProjectRequestBody } from "../../../client/restAPI";
 
 export interface ActionType {
     type: string;

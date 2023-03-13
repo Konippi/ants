@@ -1,7 +1,7 @@
 import { Alert } from "@mui/material";
 import React, {ChangeEvent, FC, memo, useState} from "react";
-import { CreateUserRequestBody } from "../../client";
-import { userApi } from "../../client/clientWrapper";
+import { CreateUserRequestBody } from "../../client/restAPI";
+import { userApi } from "../../client/restAPI/clientWrapper";
 import { BaseInput, BaseTextButton } from "../atoms";
 
 const SignUpForm: FC = memo(function signUpForm() {

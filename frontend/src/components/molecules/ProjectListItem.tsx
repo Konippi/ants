@@ -1,7 +1,7 @@
 import React, {FC} from "react";
 import { ImageIcon } from "../atoms";
 import { BsChevronRight } from "react-icons/bs";
-import { Project } from "../../client";
+import { Project } from "../../client/restAPI";
 import { useSelector } from "react-redux";
 import { StoreType } from "../../redux/store";
 import { ColorType, getColor } from "../../redux/utils/color";

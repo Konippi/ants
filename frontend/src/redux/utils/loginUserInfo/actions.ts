@@ -1,4 +1,4 @@
-import { UserInfoModel } from "../../../client";
+import { UserInfoModel } from "../../../client/restAPI";
 
 export interface ActionType {
     type: string;

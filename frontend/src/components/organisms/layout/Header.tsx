@@ -3,7 +3,7 @@ import React, {FC, memo, useState} from "react";
 import { BsPersonCircle } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { userApi } from "../../../client/clientWrapper";
+import { userApi } from "../../../client/restAPI/clientWrapper";
 import { StoreType } from "../../../redux/store";
 import { getColor } from "../../../redux/utils/color";
 import { BaseIconButton } from "../../atoms";
