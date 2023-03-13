@@ -4,7 +4,7 @@ type Props = {
     icon: ReactNode;
     size: string;
     isDisable?: boolean;
-    handleClick: () => void;
+    handleClick: (() => void) | ((event: React.MouseEvent<HTMLElement>) => void);
 }
 
 const BaseIconButton: FC<Props> = (props: Props) => {
