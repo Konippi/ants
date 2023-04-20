@@ -1,7 +1,7 @@
 import { ChangeEvent } from "react";
 import { MultiValue } from "react-select";
 import { Dispatch } from "redux";
-import { ProjectWithUsers } from "../../../client";
+import { ProjectWithUsers } from "../../../client/restAPI";
 import { MultiSelectType } from "../../../type/multiSelectType";
 import { StoreType } from "../../store";
 import { setProjectInputAction } from "./actions";

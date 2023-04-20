@@ -1,11 +1,11 @@
-import { UserResponse } from "../../../client";
+import { UsersResponse } from "../../../client/restAPI";
 import * as Actions from "./actions";
 
-export const initialState: UserResponse = {
+export const initialState: UsersResponse = {
     users: undefined
 };
 
-export const AllUsersReducer = (state: UserResponse = initialState, action: Actions.ActionType) => {
+export const AllUsersReducer = (state: UsersResponse = initialState, action: Actions.ActionType) => {
     switch(action.type) {
     case Actions.FETCH_ALL_USERS:
         return {

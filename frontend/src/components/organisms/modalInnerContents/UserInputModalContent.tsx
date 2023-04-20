@@ -1,8 +1,8 @@
 import { Alert } from "@mui/material";
 import React, {ChangeEvent, FC, memo, useEffect, useState} from "react";
 import { useSelector } from "react-redux";
-import { EditUserRequestBody } from "../../../client";
-import { userApi } from "../../../client/clientWrapper";
+import { EditUserRequestBody } from "../../../client/restAPI";
+import { userApi } from "../../../client/restAPI/clientWrapper";
 import { StoreType } from "../../../redux/store";
 import { getLoginUserInfo } from "../../../redux/utils/loginUserInfo";
 import { BaseModalInput, BaseTextButton } from "../../atoms";

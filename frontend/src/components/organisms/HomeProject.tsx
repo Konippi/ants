@@ -6,7 +6,7 @@ import { StoreType } from "../../redux/store";
 import { useSelector } from "react-redux";
 import { getAllProjectsInLoginUser } from "../../redux/utils/allProjectsInLoginUser";
 import { BaseModal } from "../molecules";
-import { ProjectWithUsers } from "../../client";
+import { ProjectWithUsers } from "../../client/restAPI";
 
 const HomeProject: FC = memo(function homeProject() {
     const selector = useSelector((state: StoreType) => state);

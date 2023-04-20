@@ -1,12 +1,12 @@
-import { UserResponse } from "../../../client";
+import { UsersResponse } from "../../../client/restAPI";
 
 export interface ActionType {
     type: string;
-    payload: UserResponse;
+    payload: UsersResponse;
 }
 
 export const FETCH_ALL_USERS = "FETCH_ALL_USERS";
-export const fetchAllUsersAction = (allUsers: UserResponse) => {
+export const fetchAllUsersAction = (allUsers: UsersResponse) => {
     return {
         type: FETCH_ALL_USERS,
         payload: allUsers

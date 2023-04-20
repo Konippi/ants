@@ -1,4 +1,4 @@
-import { AllProjectResponse } from "../../../client";
+import { AllProjectResponse } from "../../../client/restAPI";
 
 export interface ActionType {
     type: string;

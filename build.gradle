@@ -267,6 +267,9 @@ dependencies {
     implementation "org.springframework.security:spring-security-oauth2-client"
     implementation "org.springframework.security:spring-security-oauth2-jose"
 
+    // WebSocket
+    implementation "org.springframework.boot:spring-boot-starter-websocket"
+
     //mysql
     implementation "mysql:mysql-connector-java:8.0.26"
 

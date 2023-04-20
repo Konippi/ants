@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { projectApi } from "../../../client/clientWrapper";
+import { projectApi } from "../../../client/restAPI/clientWrapper";
 import { fetchAllProjectsInLoginUserAction } from "./actions";
 
 export const fetchAllProjectsInLoginUser = () => {

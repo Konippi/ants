@@ -1,4 +1,4 @@
-import { AllProjectResponse } from "../../../client";
+import { AllProjectResponse } from "../../../client/restAPI";
 import * as Actions from "./actions";
 
 export const initialState: AllProjectResponse = {

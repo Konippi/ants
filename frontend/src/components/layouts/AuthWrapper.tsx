@@ -1,6 +1,6 @@
 import React, { FC,  memo,  ReactNode, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { userApi } from "../../client/clientWrapper";
+import { userApi } from "../../client/restAPI/clientWrapper";
 import { fetchLoginUserInfo } from "../../redux/utils/loginUserInfo";
 
 type Props = {

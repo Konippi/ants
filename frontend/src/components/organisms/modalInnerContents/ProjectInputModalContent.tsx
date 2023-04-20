@@ -1,7 +1,7 @@
 import React, {ChangeEvent, FC, memo, useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MultiValue } from "react-select";
-import { UserModel } from "../../../client";
+import { UserModel } from "../../../client/restAPI";
 import { getProjectInput, changeProjectInput, changeProjectSelect } from "../../../redux/project/projectInput";
 import { StoreType } from "../../../redux/store";
 import { getAllUsers } from "../../../redux/utils/allUsers";

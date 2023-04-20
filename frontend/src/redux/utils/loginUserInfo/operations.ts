@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { userApi } from "../../../client/clientWrapper";
+import { userApi } from "../../../client/restAPI/clientWrapper";
 import { fetchLoginUserInfoAction } from "./actions";
 
 export const fetchLoginUserInfo = () => {

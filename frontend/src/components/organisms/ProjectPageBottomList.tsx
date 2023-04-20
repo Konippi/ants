@@ -1,7 +1,7 @@
 import React, {ChangeEvent, FC, memo, useEffect, useState} from "react";
 import { ProjectList } from ".";
 import { BaseInput } from "../atoms";
-import { ProjectWithUsers } from "../../client";
+import { ProjectWithUsers } from "../../client/restAPI";
 
 type Props = {
     projects?: Array<ProjectWithUsers>;

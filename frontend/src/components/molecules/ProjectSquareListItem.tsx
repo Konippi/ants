@@ -1,6 +1,6 @@
 import React, {FC} from "react";
 import { ImageIcon } from "../atoms";
-import { Project } from "../../client";
+import { Project } from "../../client/restAPI";
 
 type Props = {
     project: Project;
